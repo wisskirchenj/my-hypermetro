@@ -32,3 +32,7 @@ Have fun!
 ## Progress
 
 23.05.22 Project started.
+
+29.05.22 Stage 1 completed with (almost) full-coverage Junit / Mockito testing. Functionality provided
+is still very reduced to just reading a stations input file into a list and doing some specified output by use
+of a ListIterator.
