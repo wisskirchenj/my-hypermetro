@@ -1,0 +1,10 @@
+[
+  {
+    "1": "station 1",
+    "2": "station 2"
+  },
+  {
+    "2": "station 2",
+    "1": "station 1"
+  }
+]
