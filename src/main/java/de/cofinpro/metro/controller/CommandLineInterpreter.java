@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * CommandLineInterpreter class used in the MetroController, that parses a user entered command line and creates
+ * a LineCommand form the parse result.
+ * It represents the Client in the Command-pattern as it creates the ConcreteCommands and sets their receiver,
+ * the StationsPrinter. The command is then returned to the calling MetroController - the Invoker in the pattern setting.
+ */
 public class CommandLineInterpreter {
 
     private final Scanner scanner;
@@ -20,6 +27,12 @@ public class CommandLineInterpreter {
         this.printer = printer;
     }
 
+    /**
+     * core method of the CommandLineInterpreter that parses the next user input line by use of the given scanner (constructor).
+     * It recognizes the defined commands and - if the argument number for the command matches - it creates and
+     * returns a new Command. In ay other case an InvalidCommand is created and returned.
+     * @return the created command found as parse result.
+     */
     public LineCommand parseNext() {
         List<String> tokens = tokenize(scanner.nextLine());
         if (tokens.isEmpty()) {
@@ -38,6 +51,13 @@ public class CommandLineInterpreter {
         };
     }
 
+    /**
+     * tokenizer method, that tokenizes a command line given in 2 steps:
+     * 1. it is quote-tokenized to prevent spaces in string from separating tokens
+     * 2. the not-quote enclosed parts (the even tokens) are whitespace-tokenized.
+     * @param commandLine the user entered command line
+     * @return a list of all tokens.
+     */
     List<String> tokenize(String commandLine) {
         String[] quoteTokens = commandLine.split("\"");
         List<String> tokens = new ArrayList<>();

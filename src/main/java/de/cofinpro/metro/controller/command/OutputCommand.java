@@ -5,6 +5,9 @@ import de.cofinpro.metro.model.MetroLine;
 
 import java.util.Map;
 
+/**
+ * LineCommand implementation that corresponds to an output command for a lineName.
+ */
 public class OutputCommand implements LineCommand {
 
     private final StationsPrinter stationsPrinter;
@@ -15,6 +18,11 @@ public class OutputCommand implements LineCommand {
         this.lineName = lineName;
     }
 
+    /**
+     * print the stations sequence for the given lineName using the StationsPrinter - or
+     * if the line is not contained in the lines map, output invalid command.
+     * @param lines lineName-key map containing all Metrolines in the current state
+     */
     @Override
     public void execute(Map<String, MetroLine> lines) {
         MetroLine line = lines.get(lineName);

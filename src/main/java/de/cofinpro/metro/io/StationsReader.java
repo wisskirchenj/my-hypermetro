@@ -1,6 +1,8 @@
 package de.cofinpro.metro.io;
 
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import de.cofinpro.metro.model.MetroLine;
 
 import java.io.FileNotFoundException;

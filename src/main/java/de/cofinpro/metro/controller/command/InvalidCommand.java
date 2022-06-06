@@ -5,9 +5,14 @@ import de.cofinpro.metro.model.MetroLine;
 
 import java.util.Map;
 
+/**
+ * InvalidCommand objects are instantiated, if the CL-Interpreter parsing cannot recognize a known command
+ * as well as if the parameters to a known command do not match the syntax.
+ */
 public class InvalidCommand implements LineCommand {
 
     private final StationsPrinter  stationsPrinter;
+
     public InvalidCommand(StationsPrinter printer) {
         this.stationsPrinter = printer;
     }

@@ -36,3 +36,6 @@ Have fun!
 29.05.22 Stage 1 completed with (almost) full-coverage Junit / Mockito testing. Functionality provided
 is still very reduced to just reading a stations input file into a list and doing some specified output by use
 of a ListIterator.
+
+07.06.22 Stage 2 completed using Google's GSON library - esp. the tree API with JsonParser, JsonElement, etc.. 
+Implementation of a commandLineInterpreter added dollwing the Command pattern. Some testing - not done yet though.

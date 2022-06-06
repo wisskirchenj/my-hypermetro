@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * controller class for the Hypermetro application. On construction it gets instances of a StationsReader
- * and StationsPrinter for the IO. Its only public run-method performs the application flow.
+ * CommandLineInterpreter and StationsPrinterO. Its only public run-method performs the application flow.
  */
 public class MetroController {
 
@@ -34,7 +34,7 @@ public class MetroController {
 
     /**
      * read the given input file into a list of stations and prepend, append the 'depot' station.
-     * Then call the Printer's output method.
+     * Then start the CLI-loop.
      * @param linesJsonFilePath path to the json lines file.
      */
     public void run(String linesJsonFilePath) {
@@ -48,6 +48,12 @@ public class MetroController {
         }
     }
 
+    /**
+     * read the Json File with metro data from the given path and start the GSON-parsing using the StationsPrinter.
+     * After reading in into the lines map, each line gets the "depot" station appended and prepended.
+     * @param linesJsonFilePath path to json
+     * @return true if read was successful, false if an exception occurred.
+     */
     private boolean readLines(String linesJsonFilePath) {
         try {
             lines = stationsReader.readJsonFile(linesJsonFilePath);
