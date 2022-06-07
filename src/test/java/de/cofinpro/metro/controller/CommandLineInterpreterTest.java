@@ -1,16 +1,25 @@
 package de.cofinpro.metro.controller;
 
+import de.cofinpro.metro.controller.command.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class CommandLineInterpreterTest {
 
     @Mock
@@ -69,5 +78,38 @@ class CommandLineInterpreterTest {
         assertEquals("s", tokens.get(2));
         assertEquals("abd", tokens.get(3));
         assertEquals("eine neue station 1", tokens.get(4));
+    }
+
+    static Stream<Arguments> whenValidCommand_parseNextReturnsValidCommand() {
+        return Stream.of(
+                Arguments.of("/exit", ExitCommand.class),
+                Arguments.of("/output \"linee 1\"", OutputCommand.class),
+                Arguments.of("/remove line1 \"station 2\"", RemoveCommand.class),
+                Arguments.of("/add-head line2 station", InsertCommand.class),
+                Arguments.of("/append line2 station", InsertCommand.class)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource()
+    void whenValidCommand_parseNextReturnsValidCommand(String userEntry,
+                                                           Class<? extends LineCommand> commandClass) {
+        when(scanner.nextLine()).thenReturn(userEntry);
+        assertEquals(commandClass, commandLineInterpreter.parseNext().getClass());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"",
+            "/wrong",
+            "/output",
+            "/exit now",
+            "/remove \"one arg\"",
+            "/append \"one arg\"",
+            "/add-head \"one arg\"",
+            "/add-head too many args",
+            "/output two args"})
+    void whenInvalidCommand_parseNextReturnsInvalidCommand(String userEntry) {
+        when(scanner.nextLine()).thenReturn(userEntry);
+        assertTrue(commandLineInterpreter.parseNext() instanceof InvalidCommand);
     }
 }
