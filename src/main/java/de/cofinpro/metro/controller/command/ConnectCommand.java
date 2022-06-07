@@ -6,6 +6,11 @@ import de.cofinpro.metro.model.TransferStation;
 
 import java.util.Map;
 
+/**
+ * ConnectCommand class is used for the /connect instruction on the command line.
+ * The command has four arguments lineName, stationName, transferLineName and transferStationName.
+ * Its execution connects two stations of two separate lines as transfer stations.
+ */
 public class ConnectCommand implements LineCommand {
 
     private final StationsPrinter stationsPrinter;

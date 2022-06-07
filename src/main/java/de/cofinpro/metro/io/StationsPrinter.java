@@ -21,8 +21,7 @@ public class StationsPrinter {
     }
 
     /**
-     * test-friendly method that creates overall output for the stations given. For each of
-     * the stations, it prints an extra line with the previous, current and following stations
+     * test-friendly method that creates overall output for the stations given.
      * @param stations list of station name strings
      * @return the total output string
      */

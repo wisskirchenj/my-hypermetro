@@ -5,14 +5,24 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 /**
- * MetroLine class is a LinkedList<Station>. Has convenience methods for adding, removing stations by name.
+ * MetroLine class is a LinkedList<Station>. Has convenience methods for finding, adding and removing stations by name.
  */
 public class MetroLine extends LinkedList<Station> {
 
+    /**
+     * adds the station at the given index into the list
+     * @param index index where to add
+     * @param stationName station to add
+     */
     public void addStationByName(int index, String stationName) {
         add(index, new Station(stationName));
     }
 
+    /**
+     * removes the (first = lowest index) station given by the name from this MetroLine - does nothing, if station
+     * is not found.
+     * @param stationName station to be removed
+     */
     public void removeStationByName(String stationName) {
         Iterator<Station> iterator = iterator();
         while (iterator.hasNext()) {
@@ -23,6 +33,11 @@ public class MetroLine extends LinkedList<Station> {
         }
     }
 
+    /**
+     * finds a ststion to the given name, if present.
+     * @param stationName search key station name
+     * @return Optional result of the search
+     */
     public Optional<Station> findStationByName(String stationName) {
         for (Station current : this) {
             if (stationName.equals(current.getName())) {
