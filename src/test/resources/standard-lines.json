@@ -1,11 +1,11 @@
 {
   "line 1": {
-    "3": {"name": "station 3", "transfer": null},
-    "1": {"name": "station 1", "transfer": null},
-    "2": {"name": "station 2", "transfer": null}
+    "3": {"name": "station 3", "transfer": []},
+    "1": {"name": "station 1", "transfer": []},
+    "2": {"name": "station 2", "transfer": []}
   },
   "line 2": {
-    "2": {"name": "station 2", "transfer": null},
-    "1": {"name": "station 1", "transfer": null}
+    "2": {"name": "station 2", "transfer": []},
+    "1": {"name": "station 1", "transfer": []}
   }
 }

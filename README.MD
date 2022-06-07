@@ -39,4 +39,7 @@ is still very reduced to just reading a stations input file into a list and doin
 of a ListIterator.
 
 07.06.22 Stage 2 completed using Google's GSON library - esp. the tree API with JsonParser, JsonElement, etc.. 
-Implementation of a commandLineInterpreter added dollwing the Command pattern. Testing complete now.
+Implementation of a commandLineInterpreter added using the Command pattern. Testing complete now.
+
+07.06.22 Stage 3 completed with more OO model classes. Now the metro lines can be connected via transfer stations. Json
+structure more complicated - nice stage.

@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,11 +57,25 @@ class ConnectCommandTest {
         connectCommand = new ConnectCommand(printer, line, station, transferLine, transferStation);
         connectCommand.execute(lines);
         assertTrue(lines.get(line).findStationByName(station).isPresent());
-        assertEquals(new TransferStation(transferLine, transferStation),
+        assertEquals(List.of(new TransferStation(transferLine, transferStation)),
                 lines.get(line).findStationByName(station).get().getTransfer());
         assertTrue(lines.get(transferLine).findStationByName(transferStation).isPresent());
-        assertEquals(new TransferStation(line, station),
+        assertEquals(List.of(new TransferStation(line, station)),
                 lines.get(transferLine).findStationByName(transferStation).get().getTransfer());
+    }
+
+    @Test
+    void whenTwoConnectToOne_executeConnectProvidesTransferListWithTwo() {
+        connectCommand = new ConnectCommand(printer, "line1", "station", "line2", "station");
+        connectCommand.execute(lines);
+        connectCommand = new ConnectCommand(printer, "line1", "station", "line2", "newone");
+        connectCommand.execute(lines);
+        assertTrue(lines.get("line1").findStationByName("station").isPresent());
+        assertEquals(List.of(new TransferStation("line2", "station"), new TransferStation("line2", "newone")),
+                lines.get("line1").findStationByName("station").get().getTransfer());
+        assertTrue(lines.get("line2").findStationByName("newone").isPresent());
+        assertEquals(List.of(new TransferStation("line1", "station")),
+                lines.get("line2").findStationByName("newone").get().getTransfer());
     }
 
     @ParameterizedTest

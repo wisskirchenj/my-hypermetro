@@ -2,269 +2,269 @@
   "Linka A": {
     "1": {
       "name": "Nemocnice Motol" ,
-      "transfer": null
+      "transfer": []
     } ,
     "2": {
       "name": "Pet\u0159iny" ,
-      "transfer": null
+      "transfer": []
     } ,
     "3": {
       "name": "N\u00e1dra\u017e\u00ed Veleslav\u00edn" ,
-      "transfer": null
+      "transfer": []
     } ,
     "4": {
       "name": "Bo\u0159islavka" ,
-      "transfer": null
+      "transfer": []
     } ,
     "5": {
       "name": "Dejvick\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "6": {
       "name": "Hrad\u010dansk\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "7": {
       "name": "Malostransk\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "8": {
       "name": "Starom\u011bstsk\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "9": {
       "name": "M\u016fstek" ,
-      "transfer": {
+      "transfer": [{
         "line": "Linka B" ,
         "station": "M\u016fstek"
-      }
+      }]
     } ,
     "10": {
       "name": "Muzeum" ,
-      "transfer": {
+      "transfer": [{
         "line": "Linka C" ,
         "station": "Muzeum"
-      }
+      }]
     } ,
     "11": {
       "name": "N\u00e1m\u011bst\u00ed M\u00edru" ,
-      "transfer": null
+      "transfer": []
     } ,
     "12": {
       "name": "Ji\u0159\u00edho z Pod\u011bbrad" ,
-      "transfer": null
+      "transfer": []
     } ,
     "13": {
       "name": "Flora" ,
-      "transfer": null
+      "transfer": []
     } ,
     "14": {
       "name": "\u017delivsk\u00e9ho" ,
-      "transfer": null
+      "transfer": []
     } ,
     "15": {
       "name": "Stra\u0161nick\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "16": {
       "name": "Skalka" ,
-      "transfer": null
+      "transfer": []
     } ,
     "17": {
       "name": "Depo Hostiva\u0159" ,
-      "transfer": null
+      "transfer": []
     }
   } ,
   "Linka B": {
     "1": {
       "name": "\u010cern\u00fd Most" ,
-      "transfer": null
+      "transfer": []
     } ,
     "2": {
       "name": "Rajsk\u00e1 zahrada" ,
-      "transfer": null
+      "transfer": []
     } ,
     "3": {
       "name": "Hloub\u011bt\u00edn" ,
-      "transfer": null
+      "transfer": []
     } ,
     "4": {
       "name": "Kolbenova" ,
-      "transfer": null
+      "transfer": []
     } ,
     "5": {
       "name": "Vyso\u010dansk\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "6": {
       "name": "\u010ceskomoravsk\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "7": {
       "name": "Palmovka" ,
-      "transfer": null
+      "transfer": []
     } ,
     "8": {
       "name": "Invalidovna" ,
-      "transfer": null
+      "transfer": []
     } ,
     "9": {
       "name": "K\u0159i\u017e\u00edkova" ,
-      "transfer": null
+      "transfer": []
     } ,
     "10": {
       "name": "Florenc" ,
-      "transfer": {
+      "transfer": [{
         "line": "Linka C" ,
         "station": "Florenc"
-      }
+      }]
     } ,
     "11": {
       "name": "N\u00e1m\u011bst\u00ed Republiky" ,
-      "transfer": null
+      "transfer": []
     } ,
     "12": {
       "name": "M\u016fstek" ,
-      "transfer": {
+      "transfer": [{
         "line": "Linka B" ,
         "station": "M\u016fstek"
-      }
+      }]
     } ,
     "13": {
       "name": "N\u00e1rodn\u00ed t\u0159\u00edda" ,
-      "transfer": null
+      "transfer": []
     } ,
     "14": {
       "name": "Karlovo n\u00e1m\u011bst\u00ed" ,
-      "transfer": null
+      "transfer": []
     } ,
     "15": {
       "name": "And\u011bl" ,
-      "transfer": null
+      "transfer": []
     } ,
     "16": {
       "name": "Sm\u00edchovsk\u00e9 n\u00e1dra\u017e\u00ed" ,
-      "transfer": null
+      "transfer": []
     } ,
     "17": {
       "name": "Radlick\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "18": {
       "name": "Jinonice" ,
-      "transfer": null
+      "transfer": []
     } ,
     "19": {
       "name": "Nov\u00e9 Butovice" ,
-      "transfer": null
+      "transfer": []
     } ,
     "20": {
       "name": "H\u016frka" ,
-      "transfer": null
+      "transfer": []
     } ,
     "21": {
       "name": "Lu\u017einy" ,
-      "transfer": null
+      "transfer": []
     } ,
     "22": {
       "name": "Luka" ,
-      "transfer": null
+      "transfer": []
     } ,
     "23": {
       "name": "Stod\u016flky" ,
-      "transfer": null
+      "transfer": []
     } ,
     "24": {
       "name": "Zli\u010d\u00edn" ,
-      "transfer": null
+      "transfer": []
     }
   } ,
   "Linka C": {
     "1": {
       "name": "Let\u0148any" ,
-      "transfer": null
+      "transfer": []
     } ,
     "2": {
       "name": "Prosek" ,
-      "transfer": null
+      "transfer": []
     } ,
     "3": {
       "name": "St\u0159\u00ed\u017ekov" ,
-      "transfer": null
+      "transfer": []
     } ,
     "4": {
       "name": "L\u00e1dv\u00ed" ,
-      "transfer": null
+      "transfer": []
     } ,
     "5": {
       "name": "Kobylisy" ,
-      "transfer": null
+      "transfer": []
     } ,
     "6": {
       "name": "N\u00e1dra\u017e\u00ed Hole\u0161ovice" ,
-      "transfer": null
+      "transfer": []
     } ,
     "7": {
       "name": "Vltavsk\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "8": {
       "name": "Florenc" ,
-      "transfer": {
+      "transfer": [{
         "line": "Linka B" ,
         "station": "Florenc"
-      }
+      }]
     } ,
     "9": {
       "name": "Hlavn\u00ed n\u00e1dra\u017e\u00ed" ,
-      "transfer": null
+      "transfer": []
     } ,
     "10": {
       "name": "Muzeum" ,
-      "transfer": {
+      "transfer": [{
         "line": "Linka A" ,
         "station": "Muzeum"
-      }
+      }]
     } ,
     "11": {
       "name": "I.P.Pavlova" ,
-      "transfer": null
+      "transfer": []
     } ,
     "12": {
       "name": "Vy\u0161ehrad" ,
-      "transfer": null
+      "transfer": []
     } ,
     "13": {
       "name": "Pra\u017esk\u00e9ho povst\u00e1n\u00ed" ,
-      "transfer": null
+      "transfer": []
     } ,
     "14": {
       "name": "Pankr\u00e1c" ,
-      "transfer": null
+      "transfer": []
     } ,
     "15": {
       "name": "Bud\u011bjovick\u00e1" ,
-      "transfer": null
+      "transfer": []
     } ,
     "16": {
       "name": "Ka\u010derov" ,
-      "transfer": null
+      "transfer": []
     } ,
     "17": {
       "name": "Roztyly" ,
-      "transfer": null
+      "transfer": []
     } ,
     "18": {
       "name": "Chodov" ,
-      "transfer": null
+      "transfer": []
     } ,
     "19": {
       "name": "Opatov" ,
-      "transfer": null
+      "transfer": []
     } ,
     "20": {
       "name": "H\u00e1je" ,
-      "transfer": null
+      "transfer": []
     }
   }
 }

@@ -43,9 +43,9 @@ public class ConnectCommand implements LineCommand {
             stationsPrinter.printError("Invalid Command");
         } else {
             line.findStationByName(stationName).get()
-                    .setTransfer(new TransferStation(transferLineName, transferStationName));
+                    .addTransfer(new TransferStation(transferLineName, transferStationName));
             transferLine.findStationByName(transferStationName).get()
-                    .setTransfer(new TransferStation(lineName, stationName));
+                    .addTransfer(new TransferStation(lineName, stationName));
         }
     }
 

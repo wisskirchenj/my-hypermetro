@@ -39,7 +39,7 @@ class StationsPrinterTest {
     void whenStationListHas2ExtraStations_createOutputGives2CorrectLines() {
         List<Station> stations = new ArrayList<>();
         Station station = new Station("station");
-        station.setTransfer(new TransferStation("Ligne", "other"));
+        station.addTransfer(new TransferStation("Ligne", "other"));
         stations.add(new Station("depot"));
         stations.add(station);
         stations.add(new Station("depot"));
