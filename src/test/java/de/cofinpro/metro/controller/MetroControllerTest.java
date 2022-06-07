@@ -13,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -31,9 +30,6 @@ class MetroControllerTest {
     CommandLineInterpreter commandLineInterpreter;
     @Captor
     ArgumentCaptor<String> printerErrorCaptor;
-
-    @Captor
-    ArgumentCaptor<List<String>> printerListCaptor;
 
     MetroController metroController;
 
