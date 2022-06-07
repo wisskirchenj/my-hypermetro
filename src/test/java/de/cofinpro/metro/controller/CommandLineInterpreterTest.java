@@ -83,10 +83,11 @@ class CommandLineInterpreterTest {
     static Stream<Arguments> whenValidCommand_parseNextReturnsValidCommand() {
         return Stream.of(
                 Arguments.of("/exit", ExitCommand.class),
-                Arguments.of("/output \"linee 1\"", OutputCommand.class),
+                Arguments.of("/output \"line 1\"", OutputCommand.class),
                 Arguments.of("/remove line1 \"station 2\"", RemoveCommand.class),
                 Arguments.of("/add-head line2 station", InsertCommand.class),
-                Arguments.of("/append line2 station", InsertCommand.class)
+                Arguments.of("/append line2 station", InsertCommand.class),
+                Arguments.of("/connect line1 station line2 station", ConnectCommand.class)
         );
     }
 
@@ -107,6 +108,7 @@ class CommandLineInterpreterTest {
             "/append \"one arg\"",
             "/add-head \"one arg\"",
             "/add-head too many args",
+            "/connect too few args",
             "/output two args"})
     void whenInvalidCommand_parseNextReturnsInvalidCommand(String userEntry) {
         when(scanner.nextLine()).thenReturn(userEntry);

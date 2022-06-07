@@ -1,9 +1,11 @@
 package de.cofinpro.metro.io;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.Station;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +18,8 @@ import java.util.*;
  * Class for reading .json file input on subway stations. Uses GSON.
  */
 public class StationsReader {
+
+    private static final Gson GSON = new Gson();
 
     /**
      * read input of the given json file path into a list of MetroLines using Google's GSON lib.
@@ -55,7 +59,7 @@ public class StationsReader {
         MetroLine line = new MetroLine();
         lineJson.getAsJsonObject().entrySet().stream()
                 .sorted(Comparator.comparingInt(e -> Integer.parseInt(e.getKey())))
-                .forEach(stationEntry -> line.addLast(stationEntry.getValue().getAsString()));
+                .forEach(stationEntry -> line.addLast(GSON.fromJson(stationEntry.getValue(), Station.class)));
         return line;
     }
 }

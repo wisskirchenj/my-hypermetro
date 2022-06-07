@@ -1,6 +1,9 @@
 {
   "line 1": {
-    "3": "station 3",
+    "3": {
+      "name": "N\u00e1dra\u017e\u00ed Veleslav\u00edn" ,
+      "transfer": null
+    },
     "1.": "station 1",
     "2": "station 2"
   },

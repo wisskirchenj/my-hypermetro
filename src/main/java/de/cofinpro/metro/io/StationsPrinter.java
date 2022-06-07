@@ -1,9 +1,9 @@
 package de.cofinpro.metro.io;
 
+import de.cofinpro.metro.model.Station;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * printer class to output a stations list - uses log4j (resp. System.out.* for hyperskill tests)
@@ -11,13 +11,11 @@ import java.util.ListIterator;
 @Slf4j
 public class StationsPrinter {
 
-    private static final String STATION_JOIN = " - ";
-
     /**
      * log the stations list in the desired format
      * @param stations list of station name strings
      */
-    public void print(List<String> stations) {
+    public void print(List<Station> stations) {
         String output = createOutputFromList(stations);
         log.info(output);
     }
@@ -28,20 +26,13 @@ public class StationsPrinter {
      * @param stations list of station name strings
      * @return the total output string
      */
-    String createOutputFromList(List<String> stations) {
+    String createOutputFromList(List<Station> stations) {
         if (stations.size() < 3) {
             return "";
         }
 
         StringBuilder builder = new StringBuilder();
-        ListIterator<String> iterator = stations.listIterator(1);
-        for (int i = 0; i < stations.size() - 2; i++) {
-            builder.append(iterator.previous()).append(STATION_JOIN);
-            iterator.next();
-            builder.append(iterator.next()).append(STATION_JOIN);
-            builder.append(iterator.next()).append("\n");
-            iterator.previous();
-        }
+        stations.forEach(station -> builder.append(station).append("\n"));
         return builder.toString();
     }
 

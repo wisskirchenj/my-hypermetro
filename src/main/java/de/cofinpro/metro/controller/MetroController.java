@@ -6,6 +6,7 @@ import de.cofinpro.metro.controller.command.LineCommand;
 import de.cofinpro.metro.io.StationsPrinter;
 import de.cofinpro.metro.io.StationsReader;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.Station;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.Map;
  */
 public class MetroController {
 
-    private static final String DEPOT_STATION = "depot";
+    private static final Station DEPOT_STATION = new Station("depot");
     private final StationsReader stationsReader;
     private final StationsPrinter stationsPrinter;
     private final CommandLineInterpreter commandLineInterpreter;
@@ -75,7 +76,7 @@ public class MetroController {
      * pre- and append the 'depot'-station to the read-in list.
      * @param stations the read-in list to be extended
      */
-    private void addDepotStation(List<String> stations) {
+    private void addDepotStation(List<Station> stations) {
         stations.add(DEPOT_STATION);
         stations.add(0, DEPOT_STATION);
     }

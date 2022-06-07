@@ -1,8 +1,11 @@
 package de.cofinpro.metro.io;
 
+import de.cofinpro.metro.model.Station;
+import de.cofinpro.metro.model.TransferStation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,30 +21,30 @@ class StationsPrinterTest {
 
     @Test
     void whenEmptyStations_OrOnlyDepotGiven_createOutputFromListReturnsEmpty() {
-        List<String> stations = List.of();
+        List<Station> stations = List.of();
         assertEquals("", stationsPrinter.createOutputFromList(stations));
-        stations = List.of("depot", "depot");
+        stations = List.of(new Station("depot"), new Station("depot"));
         assertEquals("", stationsPrinter.createOutputFromList(stations));
     }
 
     @Test
     void whenStationListHas1ExtraStation_createOutputGives1CorrectLine() {
-        List<String> stations = List.of("depot", "station 1", "depot");
+        List<Station> stations = List.of(new Station("depot"), new Station("station 1"),
+                new Station("depot"));
         String output = stationsPrinter.createOutputFromList(stations);
-        assertEquals("depot - station 1 - depot\n", output);
+        assertEquals("depot\nstation 1\ndepot\n", output);
     }
 
     @Test
     void whenStationListHas2ExtraStations_createOutputGives2CorrectLines() {
-        List<String> stations = List.of("depot", "station 1", "station 2", "depot");
+        List<Station> stations = new ArrayList<>();
+        Station station = new Station("station");
+        station.setTransfer(new TransferStation("Ligne", "other"));
+        stations.add(new Station("depot"));
+        stations.add(station);
+        stations.add(new Station("depot"));
         String output = stationsPrinter.createOutputFromList(stations);
-        assertEquals("depot - station 1 - station 2\nstation 1 - station 2 - depot\n", output);
+        assertEquals("depot\nstation - other (Ligne line)\ndepot\n", output);
     }
 
-    @Test
-    void whenStationListHas3ExtraStations_createOutputGives3CorrectLines() {
-        List<String> stations = List.of("depot", "station 1", "station 2", "station 3", "depot");
-        String output = stationsPrinter.createOutputFromList(stations);
-        assertEquals("depot - station 1 - station 2\nstation 1 - station 2 - station 3\nstation 2 - station 3 - depot\n", output);
-    }
 }

@@ -32,7 +32,7 @@ public class RemoveCommand implements LineCommand {
         if (line == null) {
             stationsPrinter.printError("Invalid Command");
         } else {
-            line.remove(stationName);
+            line.removeStationByName(stationName);
         }
     }
 

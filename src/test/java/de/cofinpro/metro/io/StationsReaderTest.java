@@ -48,12 +48,6 @@ class StationsReaderTest {
     }
 
     @Test
-    void whenJsonStationValueIsObject_readJsonFileThrowsUnsupportedOperation() {
-        String invalidPath = "./src/test/resources/standard-wrong3.json";
-        assertThrows(UnsupportedOperationException.class, () -> stationsReader.readJsonFile(invalidPath));
-    }
-
-    @Test
     void whenJsonStationKeyIsNaN_readJsonFileThrowsNumberFormat() {
         String invalidPath = "./src/test/resources/standard-nan.json";
         assertThrows(NumberFormatException.class, () -> stationsReader.readJsonFile(invalidPath));
@@ -67,7 +61,7 @@ class StationsReaderTest {
         assertEquals(2, lines.size());
         assertTrue(lines.containsKey("line 1"));
         assertEquals(3, lines.get("line 1").size());
-        assertEquals("station 2", lines.get("line 1").get(1));
-        assertEquals("station 2", lines.get("line 2").get(1));
+        assertEquals("station 2", lines.get("line 1").get(1).getName());
+        assertEquals("station 2", lines.get("line 2").get(1).getName());
     }
 }

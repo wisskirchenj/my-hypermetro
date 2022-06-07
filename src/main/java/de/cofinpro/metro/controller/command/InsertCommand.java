@@ -35,7 +35,7 @@ public class InsertCommand implements LineCommand {
         if (line == null) {
             stationsPrinter.printError("Invalid Command");
         } else {
-            line.add(type == CommandType.ADD_HEAD ? 1 : line.size() - 1, stationName);
+            line.addStationByName(type == CommandType.ADD_HEAD ? 1 : line.size() - 1, stationName);
         }
     }
 

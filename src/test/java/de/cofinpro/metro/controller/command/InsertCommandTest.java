@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +34,10 @@ class InsertCommandTest {
     void setup() {
         lines = new HashMap<>();
         MetroLine line = new MetroLine();
-        line.addAll(List.of("depot", "station", "other station", "depot"));
+        line.addStationByName(0,"depot");
+        line.addStationByName(1,"station");
+        line.addStationByName(2,"other station");
+        line.addStationByName(3,"depot");
         lines.put(LINE_NAME, line);
     }
 
@@ -45,7 +47,7 @@ class InsertCommandTest {
         insertCommand.execute(lines);
         assertEquals(1, lines.size());
         assertEquals(5, lines.get(LINE_NAME).size());
-        assertEquals("first station", lines.get(LINE_NAME).get(1));
+        assertEquals("first station", lines.get(LINE_NAME).get(1).getName());
     }
 
     @Test
@@ -64,7 +66,7 @@ class InsertCommandTest {
         insertCommand.execute(lines);
         assertEquals(1, lines.size());
         assertEquals(5, lines.get(LINE_NAME).size());
-        assertEquals("first station", lines.get(LINE_NAME).get(3));
+        assertEquals("first station", lines.get(LINE_NAME).get(3).getName());
     }
 
     @Test

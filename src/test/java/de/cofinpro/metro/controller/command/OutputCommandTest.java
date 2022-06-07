@@ -32,7 +32,10 @@ class OutputCommandTest {
     void setUp() {
         lines = new HashMap<>();
         MetroLine line = new MetroLine();
-        line.addAll(List.of("depot", "other station", "depot"));
+        line.addStationByName(0,"depot");
+        line.addStationByName(1,"station");
+        line.addStationByName(2,"other station");
+        line.addStationByName(3,"depot");
         lines.put("line 1", line);
     }
 

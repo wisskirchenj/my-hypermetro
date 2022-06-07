@@ -33,19 +33,33 @@ class RemoveCommandTest {
     void setup() {
         lines = new HashMap<>();
         MetroLine line = new MetroLine();
-        line.addAll(List.of("depot", "station", "other station", "depot"));
+        line.addStationByName(0,"depot");
+        line.addStationByName(1,"station");
+        line.addStationByName(2,"other station");
+        line.addStationByName(3,"depot");
         lines.put(LINE_NAME, line);
     }
 
     @Test
-    void whenRemoveValidLine_executeAddsLineHead() {
+    void whenRemoveValidLineAndStation_executeRemoves() {
         removeCommand = new RemoveCommand(printer, LINE_NAME, "other station");
         removeCommand.execute(lines);
         assertEquals(1, lines.size());
         assertEquals(3, lines.get(LINE_NAME).size());
-        assertEquals("station", lines.get(LINE_NAME).get(1));
-        assertEquals("depot", lines.get(LINE_NAME).get(2));
+        assertEquals("station", lines.get(LINE_NAME).get(1).getName());
+        assertEquals("depot", lines.get(LINE_NAME).get(2).getName());
     }
+
+    @Test
+    void whenRemoveValidLineInvalidStation_executeDoesNothing() {
+        removeCommand = new RemoveCommand(printer, LINE_NAME, "not there");
+        removeCommand.execute(lines);
+        assertEquals(1, lines.size());
+        assertEquals(4, lines.get(LINE_NAME).size());
+        assertEquals("station", lines.get(LINE_NAME).get(1).getName());
+        assertEquals("depot", lines.get(LINE_NAME).get(3).getName());
+    }
+
 
     @Test
     void whenRemoveInvalidLine_executePrintsInvalidCommand() {
