@@ -3,34 +3,32 @@ package de.cofinpro.metro.controller;
 import com.google.gson.JsonParseException;
 import de.cofinpro.metro.controller.command.CommandType;
 import de.cofinpro.metro.controller.command.LineCommand;
-import de.cofinpro.metro.io.StationsPrinter;
-import de.cofinpro.metro.io.StationsReader;
+import de.cofinpro.metro.io.MetroPrinter;
+import de.cofinpro.metro.io.MetroReader;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 import de.cofinpro.metro.model.Station;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
- * controller class for the Hypermetro application. On construction it gets instances of a StationsReader
+ * controller class for the Hypermetro application. On construction it gets instances of a MetroReader
  * CommandLineInterpreter and StationsPrinterO. Its only public run-method performs the application flow.
  */
 public class MetroController {
 
-    private static final Station DEPOT_STATION = new Station("depot");
-    private final StationsReader stationsReader;
-    private final StationsPrinter stationsPrinter;
+    private final MetroReader metroReader;
+    private final MetroPrinter metroPrinter;
     private final CommandLineInterpreter commandLineInterpreter;
-    private Map<String, MetroLine> lines;
+    private MetroNet lines;
 
-    public MetroController(StationsReader stationsReader, StationsPrinter stationsPrinter,
+    public MetroController(MetroReader metroReader, MetroPrinter metroPrinter,
                            CommandLineInterpreter commandLineInterpreter) {
-        this.stationsReader = stationsReader;
-        this.stationsPrinter = stationsPrinter;
+        this.metroReader = metroReader;
+        this.metroPrinter = metroPrinter;
         this.commandLineInterpreter = commandLineInterpreter;
-        this.commandLineInterpreter.setPrinter(stationsPrinter);
+        this.commandLineInterpreter.setPrinter(metroPrinter);
     }
 
     /**
@@ -50,22 +48,22 @@ public class MetroController {
     }
 
     /**
-     * read the Json File with metro data from the given path and start the GSON-parsing using the StationsPrinter.
+     * read the Json File with metro data from the given path and start the GSON-parsing using the MetroPrinter.
      * After reading in into the lines map, each line gets the "depot" station appended and prepended.
      * @param linesJsonFilePath path to json
      * @return true if read was successful, false if an exception occurred.
      */
     private boolean readLines(String linesJsonFilePath) {
         try {
-            lines = stationsReader.readJsonFile(linesJsonFilePath);
+            lines = metroReader.readJsonFile(linesJsonFilePath);
         } catch (JsonParseException | IllegalStateException | NumberFormatException | UnsupportedOperationException e) {
-            stationsPrinter.printError("Incorrect file");
+            metroPrinter.printError("Incorrect file");
             return false;
         } catch (FileNotFoundException e) {
-            stationsPrinter.printError("Error! Such a file doesn't exist!");
+            metroPrinter.printError("Error! Such a file doesn't exist!");
             return false;
         } catch (IOException e) {
-            stationsPrinter.printError(e.toString());
+            metroPrinter.printError(e.toString());
             return false;
         }
         lines.values().forEach(this::addDepotStation);
@@ -74,10 +72,12 @@ public class MetroController {
 
     /**
      * pre- and append the 'depot'-station to the read-in list.
-     * @param stations the read-in list to be extended
+     * @param line the read-in metro line to be extended
      */
-    private void addDepotStation(List<Station> stations) {
-        stations.add(DEPOT_STATION);
-        stations.add(0, DEPOT_STATION);
+    private void addDepotStation(MetroLine line) {
+        Station depotStation = new Station("depot");
+        depotStation.setLine(line.getName());
+        line.add(depotStation);
+        line.add(0, depotStation);
     }
 }

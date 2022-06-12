@@ -1,8 +1,7 @@
 package de.cofinpro.metro.controller.command;
 
-import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 
-import java.util.Map;
 
 /**
  * Command-pattern interface: implementing classes are executable (Concrete) LineCommands
@@ -10,11 +9,11 @@ import java.util.Map;
 public interface LineCommand {
 
     /**
-     * execute the command on the given metro lines.
+     * execute the command on the given metro net.
      * The execute-command may change the lines map content (e.g.: append, add-head or remove)
-     * @param lines lineName-key map containing all Metrolines in the current state
+     * @param lines MetroNet lineName-key map containing all Metrolines in the current state
      */
-    void execute(Map<String, MetroLine> lines);
+    void execute(MetroNet lines);
 
     /**
      * getter for the commands type

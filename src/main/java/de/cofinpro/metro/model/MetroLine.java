@@ -5,9 +5,17 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 /**
- * MetroLine class is a LinkedList<Station>. Has convenience methods for finding, adding and removing stations by name.
+ * MetroLine class is a LinkedList<Station> that has the line name as additional field.
+ * It offers convenience methods for finding, adding and removing stations by name.
  */
 public class MetroLine extends LinkedList<Station> {
+
+    private final String name;
+
+    public MetroLine(String name) {
+        super();
+        this.name = name;
+    }
 
     /**
      * adds the station at the given index into the list
@@ -15,7 +23,9 @@ public class MetroLine extends LinkedList<Station> {
      * @param stationName station to add
      */
     public void addStationByName(int index, String stationName) {
-        add(index, new Station(stationName));
+        Station station = new Station(stationName);
+        station.setLine(name);
+        add(index, station);
     }
 
     /**
@@ -34,7 +44,7 @@ public class MetroLine extends LinkedList<Station> {
     }
 
     /**
-     * finds a ststion to the given name, if present.
+     * finds the lowest index station to the given name, if present.
      * @param stationName search key station name
      * @return Optional result of the search
      */
@@ -45,5 +55,21 @@ public class MetroLine extends LinkedList<Station> {
             }
         }
         return Optional.empty();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other)
+                && other instanceof MetroLine metroLine
+                && this.name.equals(metroLine.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() * 31 + name.hashCode();
     }
 }

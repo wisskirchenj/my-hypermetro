@@ -1,18 +1,13 @@
 package de.cofinpro.metro.controller.command;
 
-import de.cofinpro.metro.io.StationsPrinter;
+import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -23,15 +18,15 @@ import static org.mockito.Mockito.verify;
 class OutputCommandTest {
 
     @Mock
-    StationsPrinter printer;
+    MetroPrinter printer;
 
     OutputCommand outputCommand;
-    Map<String, MetroLine> lines;
+    MetroNet lines;
 
     @BeforeEach
     void setUp() {
-        lines = new HashMap<>();
-        MetroLine line = new MetroLine();
+        lines = new MetroNet();
+        MetroLine line = new MetroLine("line 1");
         line.addStationByName(0,"depot");
         line.addStationByName(1,"station");
         line.addStationByName(2,"other station");
@@ -43,7 +38,7 @@ class OutputCommandTest {
     void whenValidLine_executeOutputsList() {
         outputCommand = new OutputCommand(printer, "line 1");
         outputCommand.execute(lines);
-        verify(printer).print(lines.get("line 1"));
+        verify(printer).printLine(lines.get("line 1"));
         verify(printer, times(0)).printError(anyString());
     }
 
@@ -51,7 +46,7 @@ class OutputCommandTest {
     void whenInvalidLine_executePrintsError() {
         outputCommand = new OutputCommand(printer, "wrong");
         outputCommand.execute(lines);
-        verify(printer,times(0)).print(anyList());
+        verify(printer,times(0)).printLine(anyList());
         verify(printer).printError("Invalid Command");
     }
     @Test

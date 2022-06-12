@@ -10,28 +10,28 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StationsPrinterTest {
+class MetroPrinterTest {
 
-    StationsPrinter stationsPrinter;
+    MetroPrinter metroPrinter;
 
     @BeforeEach
     void setUp() {
-        stationsPrinter = new StationsPrinter();
+        metroPrinter = new MetroPrinter();
     }
 
     @Test
     void whenEmptyStations_OrOnlyDepotGiven_createOutputFromListReturnsEmpty() {
         List<Station> stations = List.of();
-        assertEquals("", stationsPrinter.createOutputFromList(stations));
+        assertEquals("", metroPrinter.createLineInfo(stations));
         stations = List.of(new Station("depot"), new Station("depot"));
-        assertEquals("", stationsPrinter.createOutputFromList(stations));
+        assertEquals("", metroPrinter.createLineInfo(stations));
     }
 
     @Test
     void whenStationListHas1ExtraStation_createOutputGives1CorrectLine() {
         List<Station> stations = List.of(new Station("depot"), new Station("station 1"),
                 new Station("depot"));
-        String output = stationsPrinter.createOutputFromList(stations);
+        String output = metroPrinter.createLineInfo(stations);
         assertEquals("depot\nstation 1\ndepot\n", output);
     }
 
@@ -43,7 +43,7 @@ class StationsPrinterTest {
         stations.add(new Station("depot"));
         stations.add(station);
         stations.add(new Station("depot"));
-        String output = stationsPrinter.createOutputFromList(stations);
+        String output = metroPrinter.createLineInfo(stations);
         assertEquals("depot\nstation - other (Ligne line)\ndepot\n", output);
     }
 

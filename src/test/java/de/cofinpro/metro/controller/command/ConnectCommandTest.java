@@ -1,7 +1,8 @@
 package de.cofinpro.metro.controller.command;
 
-import de.cofinpro.metro.io.StationsPrinter;
+import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 import de.cofinpro.metro.model.TransferStation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +12,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
@@ -22,22 +19,22 @@ import static org.mockito.Mockito.verify;
 class ConnectCommandTest {
 
     @Mock
-    StationsPrinter printer;
+    MetroPrinter printer;
 
     ConnectCommand connectCommand;
 
-    Map<String, MetroLine> lines;
+    MetroNet lines;
 
     @BeforeEach
     void setup() {
-        lines = new HashMap<>();
-        MetroLine line = new MetroLine();
+        lines = new MetroNet();
+        MetroLine line = new MetroLine("line1");
         line.addStationByName(0,"depot");
         line.addStationByName(1,"station");
         line.addStationByName(2,"otherstation");
         line.addStationByName(3,"depot");
         lines.put("line1", line);
-        line = new MetroLine();
+        line = new MetroLine("line2");
         line.addStationByName(0,"depot");
         line.addStationByName(1,"station");
         line.addStationByName(2,"newone");
@@ -57,11 +54,11 @@ class ConnectCommandTest {
         connectCommand = new ConnectCommand(printer, line, station, transferLine, transferStation);
         connectCommand.execute(lines);
         assertTrue(lines.get(line).findStationByName(station).isPresent());
-        assertEquals(List.of(new TransferStation(transferLine, transferStation)),
-                lines.get(line).findStationByName(station).get().getTransfer());
+        assertEquals(new TransferStation(transferLine, transferStation),
+                lines.get(line).findStationByName(station).get().getTransfer().get(0));
         assertTrue(lines.get(transferLine).findStationByName(transferStation).isPresent());
-        assertEquals(List.of(new TransferStation(line, station)),
-                lines.get(transferLine).findStationByName(transferStation).get().getTransfer());
+        assertEquals(new TransferStation(line, station),
+                lines.get(transferLine).findStationByName(transferStation).get().getTransfer().get(0));
     }
 
     @Test
@@ -71,11 +68,10 @@ class ConnectCommandTest {
         connectCommand = new ConnectCommand(printer, "line1", "station", "line2", "newone");
         connectCommand.execute(lines);
         assertTrue(lines.get("line1").findStationByName("station").isPresent());
-        assertEquals(List.of(new TransferStation("line2", "station"), new TransferStation("line2", "newone")),
-                lines.get("line1").findStationByName("station").get().getTransfer());
+        assertEquals(2, lines.get("line1").findStationByName("station").get().getTransfer().size());
         assertTrue(lines.get("line2").findStationByName("newone").isPresent());
-        assertEquals(List.of(new TransferStation("line1", "station")),
-                lines.get("line2").findStationByName("newone").get().getTransfer());
+        assertEquals(new TransferStation("line1", "station"),
+                lines.get("line2").findStationByName("newone").get().getTransfer().get(0));
     }
 
     @ParameterizedTest

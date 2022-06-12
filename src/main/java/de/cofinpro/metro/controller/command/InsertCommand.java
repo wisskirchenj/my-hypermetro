@@ -1,9 +1,8 @@
 package de.cofinpro.metro.controller.command;
 
-import de.cofinpro.metro.io.StationsPrinter;
+import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
-
-import java.util.Map;
+import de.cofinpro.metro.model.MetroNet;
 
 /**
  * InsertCommand class is used for the /append as well as /add-head commands on the command line.
@@ -12,13 +11,13 @@ import java.util.Map;
 public class InsertCommand implements LineCommand {
 
     private final CommandType type;
-    private final StationsPrinter stationsPrinter;
+    private final MetroPrinter metroPrinter;
     private final String lineName;
     private final String stationName;
 
-    public InsertCommand(CommandType type, StationsPrinter printer, String lineName, String stationName) {
+    public InsertCommand(CommandType type, MetroPrinter printer, String lineName, String stationName) {
         this.type = type;
-        this.stationsPrinter = printer;
+        this.metroPrinter = printer;
         this.lineName = lineName;
         this.stationName = stationName;
     }
@@ -30,10 +29,10 @@ public class InsertCommand implements LineCommand {
      * @param lines lineName-key map containing all Metrolines in the current state
      */
     @Override
-    public void execute(Map<String, MetroLine> lines) {
+    public void execute(MetroNet lines) {
         MetroLine line = lines.get(lineName);
         if (line == null) {
-            stationsPrinter.printError("Invalid Command");
+            metroPrinter.printError("Invalid Command");
         } else {
             line.addStationByName(type == CommandType.ADD_HEAD ? 1 : line.size() - 1, stationName);
         }

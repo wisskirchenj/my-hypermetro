@@ -1,19 +1,13 @@
 package de.cofinpro.metro.controller.command;
 
-import de.cofinpro.metro.io.StationsPrinter;
+import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -23,16 +17,16 @@ class RemoveCommandTest {
 
     private static final String LINE_NAME = "line 1";
     @Mock
-    StationsPrinter printer;
+    MetroPrinter printer;
 
     RemoveCommand removeCommand;
 
-    Map<String, MetroLine> lines;
+    MetroNet lines;
 
     @BeforeEach
     void setup() {
-        lines = new HashMap<>();
-        MetroLine line = new MetroLine();
+        lines = new MetroNet();
+        MetroLine line = new MetroLine(LINE_NAME);
         line.addStationByName(0,"depot");
         line.addStationByName(1,"station");
         line.addStationByName(2,"other station");

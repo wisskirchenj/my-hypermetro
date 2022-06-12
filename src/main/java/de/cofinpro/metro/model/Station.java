@@ -11,22 +11,34 @@ import java.util.List;
  */
 @Data
 public class Station {
+
+    private String line;
     private final String name;
-    private List<TransferStation> transfer = new ArrayList<>();
+    private final List<TransferStation> transfer = new ArrayList<>();
+
+    public Station(String line, String name) {
+        this(name);
+        this.line = line;
+    }
+
+    public Station(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(name);
-        transfer.forEach(transferStation -> builder.append(" - ").append(transferStation.getStation())
-                .append(" (").append(transferStation.getLine()).append(" line)"));
+        transfer.forEach(transferStation -> builder.append(" - ").append(transferStation));
         return builder.toString();
     }
 
     /**
-     * add the given transfer station to the transfer list
+     * add the given transfer station to the transfer list if not yet contained.
      * @param transferStation the transfer station to add
      */
     public void addTransfer(TransferStation transferStation) {
-        transfer.add(transferStation);
+        if (!transfer.contains(transferStation)) {
+            transfer.add(transferStation);
+        }
     }
 }

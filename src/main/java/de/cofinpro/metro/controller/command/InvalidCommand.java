@@ -1,9 +1,7 @@
 package de.cofinpro.metro.controller.command;
 
-import de.cofinpro.metro.io.StationsPrinter;
-import de.cofinpro.metro.model.MetroLine;
-
-import java.util.Map;
+import de.cofinpro.metro.io.MetroPrinter;
+import de.cofinpro.metro.model.MetroNet;
 
 /**
  * InvalidCommand objects are instantiated, if the CL-Interpreter parsing cannot recognize a known command
@@ -11,15 +9,15 @@ import java.util.Map;
  */
 public class InvalidCommand implements LineCommand {
 
-    private final StationsPrinter  stationsPrinter;
+    private final MetroPrinter metroPrinter;
 
-    public InvalidCommand(StationsPrinter printer) {
-        this.stationsPrinter = printer;
+    public InvalidCommand(MetroPrinter printer) {
+        this.metroPrinter = printer;
     }
 
     @Override
-    public void execute(Map<String, MetroLine> lines) {
-        stationsPrinter.printError("Invalid Command");
+    public void execute(MetroNet lines) {
+        metroPrinter.printError("Invalid Command");
     }
 
     @Override

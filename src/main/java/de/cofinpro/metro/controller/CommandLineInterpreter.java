@@ -1,7 +1,7 @@
 package de.cofinpro.metro.controller;
 
 import de.cofinpro.metro.controller.command.*;
-import de.cofinpro.metro.io.StationsPrinter;
+import de.cofinpro.metro.io.MetroPrinter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +12,18 @@ import java.util.Scanner;
  * CommandLineInterpreter class used in the MetroController, that parses a user entered command line and creates
  * a LineCommand form the parse result.
  * It represents the Client in the Command-pattern as it creates the ConcreteCommands and sets their receiver,
- * the StationsPrinter. The command is then returned to the calling MetroController - the Invoker in the pattern setting.
+ * the MetroPrinter. The command is then returned to the calling MetroController - the Invoker in the pattern setting.
  */
 public class CommandLineInterpreter {
 
     private final Scanner scanner;
-    private StationsPrinter printer;
+    private MetroPrinter printer;
 
     public CommandLineInterpreter(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    public void setPrinter(StationsPrinter printer) {
+    public void setPrinter(MetroPrinter printer) {
         this.printer = printer;
     }
 
@@ -45,6 +45,9 @@ public class CommandLineInterpreter {
                     : new InvalidCommand(printer);
             case "/connect" -> tokens.size() == 5
                     ? new ConnectCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
+                    : new InvalidCommand(printer);
+            case "/route" -> tokens.size() == 5
+                    ? new RouteCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
                     : new InvalidCommand(printer);
             case "/remove" -> tokens.size() == 3 ? new RemoveCommand(printer, tokens.get(1), tokens.get(2))
                     : new InvalidCommand(printer);

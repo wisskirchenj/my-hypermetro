@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 import de.cofinpro.metro.model.Station;
 
 import java.io.FileNotFoundException;
@@ -12,12 +13,12 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Comparator;
 
 /**
  * Class for reading .json file input on subway stations. Uses GSON.
  */
-public class StationsReader {
+public class MetroReader {
 
     private static final Gson GSON = new Gson();
 
@@ -31,17 +32,17 @@ public class StationsReader {
      * @throws NumberFormatException passed on from parseMetroLineJson-method
      * @throws UnsupportedOperationException passed on from parseMetroLineJson-method
      */
-    public Map<String, MetroLine> readJsonFile(String jsonPath) throws JsonParseException, NumberFormatException,
+    public MetroNet readJsonFile(String jsonPath) throws JsonParseException, NumberFormatException,
             IllegalStateException, UnsupportedOperationException, IOException {
         Path path = Path.of(jsonPath);
         if (Files.notExists(path)) {
             throw new FileNotFoundException(jsonPath + "does not exist.");
         }
-        Map<String, MetroLine> lines = new HashMap<>();
+        MetroNet lines = new MetroNet();
         try (Reader reader = Files.newBufferedReader(path)) {
             JsonElement tree = JsonParser.parseReader(reader);
             tree.getAsJsonObject().entrySet()
-                    .forEach(entry -> lines.put(entry.getKey(), parseMetroLineJson(entry.getValue())));
+                    .forEach(entry -> lines.put(entry.getKey(), parseMetroLineJson(entry.getValue(), entry.getKey())));
         }
         return lines;
     }
@@ -54,12 +55,16 @@ public class StationsReader {
      * @throws IllegalStateException if the (main) value is not a JsonObject
      * @throws UnsupportedOperationException  if one of the object-properties values is not a string
      */
-    private MetroLine parseMetroLineJson(JsonElement lineJson)
+    private MetroLine parseMetroLineJson(JsonElement lineJson, String lineName)
             throws NumberFormatException, IllegalStateException, UnsupportedOperationException {
-        MetroLine line = new MetroLine();
+        MetroLine line = new MetroLine(lineName);
         lineJson.getAsJsonObject().entrySet().stream()
                 .sorted(Comparator.comparingInt(e -> Integer.parseInt(e.getKey())))
-                .forEach(stationEntry -> line.addLast(GSON.fromJson(stationEntry.getValue(), Station.class)));
+                .forEach(stationEntry -> {
+                    Station station = GSON.fromJson(stationEntry.getValue(), Station.class);
+                    station.setLine(lineName);
+                    line.addLast(station);
+                });
         return line;
     }
 }

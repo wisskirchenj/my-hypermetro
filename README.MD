@@ -24,6 +24,25 @@ The sources of main project tasks (6 stages) and unit, mockito testing.
 
 A application that models and analyzes arbitrary metro systems, finds shortest routes, travel time estimates and more...
 
+The application reads in a .json file (compare the examples given under the src/main/resources or src/test/resources - e.g.
+for the Prague-city metro) and start a Command Line Interpreter to have the user output, change lines and - last but not least - route shortest routes from source to target station given.
+
+CL-Command overview:
+
+> /route "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> program prints every passed station and every transition on the shortest route.
+
+> /connect "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> a transfer cnnection between the given stations on different lines is added.
+
+> /append "[line name]" "[station name]". -> a new station is added to the end of the line
+
+>/add-head "[line name]" "[station name]". -> a new station is added to the head (start) of the line
+
+> /remove "[line name]" "[station name]". -> the given station is removed from the line.
+
+> /output "[line name]". -> line information output for all stations and transfers.
+
+> /exit. -> terminate program loop
+
 Have fun!
 
 ## Project completion
@@ -43,3 +62,6 @@ Implementation of a commandLineInterpreter added using the Command pattern. Test
 
 07.06.22 Stage 3 completed with more OO model classes. Now the metro lines can be connected via transfer stations. Json
 structure more complicated - nice stage.
+
+12.06.22 Stage 4 completed adding arbitrary A to B station routing, using the BFS (breadth first search) tree traversal
+algorithm
