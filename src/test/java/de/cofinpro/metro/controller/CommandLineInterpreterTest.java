@@ -87,14 +87,15 @@ class CommandLineInterpreterTest {
                 Arguments.of("/remove line1 \"station 2\"", RemoveCommand.class),
                 Arguments.of("/add-head line2 station", InsertCommand.class),
                 Arguments.of("/append line2 station", InsertCommand.class),
-                Arguments.of("/connect line1 station line2 station", ConnectCommand.class)
+                Arguments.of("/connect line1 station line2 station", ConnectCommand.class),
+                Arguments.of("/route line1 station \"line 2\" station", RouteCommand.class),
+                Arguments.of("/fastest-route \"line 1\" station \"line2\" station", FastestRouteCommand.class)
         );
     }
 
     @ParameterizedTest
     @MethodSource()
-    void whenValidCommand_parseNextReturnsValidCommand(String userEntry,
-                                                           Class<? extends LineCommand> commandClass) {
+    void whenValidCommand_parseNextReturnsValidCommand(String userEntry, Class<? extends LineCommand> commandClass) {
         when(scanner.nextLine()).thenReturn(userEntry);
         assertEquals(commandClass, commandLineInterpreter.parseNext().getClass());
     }
@@ -109,6 +110,8 @@ class CommandLineInterpreterTest {
             "/add-head \"one arg\"",
             "/add-head too many args",
             "/connect too few args",
+            "/route too \"few and \" args",
+            "/fastest-route too too too many args",
             "/output two args"})
     void whenInvalidCommand_parseNextReturnsInvalidCommand(String userEntry) {
         when(scanner.nextLine()).thenReturn(userEntry);

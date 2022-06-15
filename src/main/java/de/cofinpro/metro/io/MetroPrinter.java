@@ -66,4 +66,8 @@ public class MetroPrinter {
     public void printRoute(List<Station> route) {
         log.info(createRouteInfo(route));
     }
+
+    public void printTotalTime(int totalTime) {
+        log.info(String.format("Total: %d minutes in the way", totalTime));
+    }
 }

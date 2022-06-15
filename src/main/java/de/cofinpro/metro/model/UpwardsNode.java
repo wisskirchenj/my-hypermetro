@@ -1,7 +1,7 @@
 package de.cofinpro.metro.model;
 
 /**
- * internal simplified TreeNode structure, that only implements the Node's station data and the parent,
+ * internal simplified immutable TreeNode structure, that only implements the Node's station data and the parent,
  * which is the minimal requirement to route back after finding the target station.
  */
 class UpwardsNode {

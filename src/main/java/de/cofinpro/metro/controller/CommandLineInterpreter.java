@@ -49,6 +49,9 @@ public class CommandLineInterpreter {
             case "/route" -> tokens.size() == 5
                     ? new RouteCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
                     : new InvalidCommand(printer);
+            case "/fastest-route" -> tokens.size() == 5
+                    ? new FastestRouteCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
+                    : new InvalidCommand(printer);
             case "/remove" -> tokens.size() == 3 ? new RemoveCommand(printer, tokens.get(1), tokens.get(2))
                     : new InvalidCommand(printer);
             case "/output" -> tokens.size() == 2 ? new OutputCommand(printer, tokens.get(1)) : new InvalidCommand(printer);

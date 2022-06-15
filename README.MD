@@ -35,7 +35,7 @@ CL-Command overview:
 
 > /append "[line name]" "[station name]". -> a new station is added to the end of the line
 
->/add-head "[line name]" "[station name]". -> a new station is added to the head (start) of the line
+> /add-head "[line name]" "[station name]". -> a new station is added to the head (start) of the line
 
 > /remove "[line name]" "[station name]". -> the given station is removed from the line.
 
