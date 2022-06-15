@@ -39,7 +39,7 @@ public class CommandLineInterpreter {
             return new InvalidCommand(printer);
         }
         return switch (tokens.get(0)) {
-            case "/append" -> tokens.size() == 3 ? new InsertCommand(CommandType.APPEND, printer, tokens.get(1), tokens.get(2))
+            case "/append", "add" -> tokens.size() == 3 ? new InsertCommand(CommandType.APPEND, printer, tokens.get(1), tokens.get(2))
                     : new InvalidCommand(printer);
             case "/add-head" -> tokens.size() == 3 ? new InsertCommand(CommandType.ADD_HEAD, printer, tokens.get(1), tokens.get(2))
                     : new InvalidCommand(printer);

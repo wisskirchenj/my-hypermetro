@@ -1,12 +1,6 @@
 package de.cofinpro.metro.model;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.function.Predicate.not;
 
@@ -90,19 +84,5 @@ public class BreadthFirstSearch {
     private void enqueue(Station station, UpwardsNode parent) {
         stationQueue.offer(new UpwardsNode(station, parent));
         visited.add(station);
-    }
-
-    /**
-     * internal simplified TreeNode structure, that oonly implements the Node's station data and the parent,
-     * which is minimal requirement to route back after finding the target station.
-     */
-    static class UpwardsNode {
-        Station station;
-        UpwardsNode parent;
-
-        public UpwardsNode(Station station, UpwardsNode parent) {
-            this.station = station;
-            this.parent = parent;
-        }
     }
 }

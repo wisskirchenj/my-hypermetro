@@ -64,4 +64,19 @@ class MetroReaderTest {
         assertEquals("station 2", lines.get("line 1").get(1).getName());
         assertEquals("station 2", lines.get("line 2").get(1).getName());
     }
+
+    @Test
+    void whenJsonWithTimeGiven_readJsonFileReadsLinesWithTime() throws IOException {
+        String standardJsonPath = "./src/test/resources/test-w-time.json";
+        Map<String, MetroLine> lines = metroReader.readJsonFile(standardJsonPath);
+        System.out.println(lines);
+        assertEquals(2, lines.size());
+        assertTrue(lines.containsKey("Hammersmith-and-City"));
+        assertEquals(3, lines.get("Hammersmith-and-City").size());
+        assertEquals("Metro-Railway", lines.get("Metro-Railway").get(1).getLine());
+        assertEquals("Edgver road", lines.get("Metro-Railway").get(1).getName());
+        assertNotNull(lines.get("Metro-Railway").get(2).getTransfer());
+        assertEquals(1, lines.get("Metro-Railway").get(2).getTransfer().size());
+        assertEquals(1, lines.get("Metro-Railway").get(2).getTimeToNextStationInLine());
+    }
 }

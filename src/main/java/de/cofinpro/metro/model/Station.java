@@ -1,5 +1,6 @@
 package de.cofinpro.metro.model;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class Station {
 
     private String line;
     private final String name;
+    @SerializedName("time")
+    private final int timeToNextStationInLine;
     private final List<TransferStation> transfer = new ArrayList<>();
 
     public Station(String line, String name) {
@@ -23,6 +26,7 @@ public class Station {
 
     public Station(String name) {
         this.name = name;
+        this.timeToNextStationInLine = 0;
     }
 
     @Override
