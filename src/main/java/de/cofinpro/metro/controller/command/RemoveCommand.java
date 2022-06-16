@@ -3,6 +3,8 @@ package de.cofinpro.metro.controller.command;
 import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
 import de.cofinpro.metro.model.MetroNet;
+import de.cofinpro.metro.model.Station;
+import de.cofinpro.metro.model.TransferStation;
 
 /**
  * RemoveCommand class is used for the /remove to delete a station given from the given line.
@@ -31,6 +33,15 @@ public class RemoveCommand implements LineCommand {
         if (line == null) {
             metroPrinter.printError("Invalid Command");
         } else {
+            // remove the station from all transfer lists, where it is contained
+            if (lines.findStation(lineName, stationName).isPresent()) {
+                TransferStation stationAsTransferStation = new TransferStation(lineName, stationName);
+                Station station = lines.findStation(lineName, stationName).get();
+                for (TransferStation transfer: station.getTransfer()) {
+                    lines.findStation(transfer.getLine(), transfer.getStation())
+                            .ifPresent(transferStation -> transferStation.getTransfer().remove(stationAsTransferStation));
+                }
+            }
             line.removeStationByName(stationName);
         }
     }

@@ -18,7 +18,7 @@ public class MetroLine extends LinkedList<Station> {
     }
 
     /**
-     * adds the station at the given index into the list
+     * adds the station with given time at the given index into the list
      * @param index index where to add
      * @param stationName station to add
      */

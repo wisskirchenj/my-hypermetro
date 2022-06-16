@@ -67,3 +67,6 @@ structure more complicated - nice stage.
 
 12.06.22 Stage 4 completed adding arbitrary A to B station routing, using the BFS (breadth first search) tree traversal
 algorithm
+
+16.06.22 Stage 5 completed adding fastest route tracking using Dijkstra Algorithm for (here: travel time) weighted graphs.
+use of PriorityQueue class with Comparator constructor parameter.

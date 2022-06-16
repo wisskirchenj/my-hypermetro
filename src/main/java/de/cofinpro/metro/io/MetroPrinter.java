@@ -69,6 +69,10 @@ public class MetroPrinter {
         log.info(createRouteInfo(route));
     }
 
+    /**
+     * print a travel time estimate line after fastest-route search.
+     * @param totalTime estimated total travel time
+     */
     public void printTotalTime(int totalTime) {
         log.info(String.format("Total: %d minutes in the way", totalTime));
     }

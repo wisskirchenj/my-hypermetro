@@ -26,8 +26,8 @@ public class InsertCommand implements LineCommand {
 
     /**
      * inserts the station given by name either at index position 1 (after depot) in case of /add-head
-     * or before the last station (depot) in case of /append.
-     * If line is not found by name: Invalid Command is print out.
+     * or before the last station (depot) in case of /append or /add.
+     * If line is not found by name or time argument has no integer format: Invalid Command is print out.
      * @param lines lineName-key map containing all Metrolines in the current state
      */
     @Override

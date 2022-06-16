@@ -14,9 +14,9 @@ import static java.util.function.Predicate.not;
 
 /**
  * Dijkstra algorithm implementing class - specialized for this metro routing problem of finding the fastest route between
- * stations in the metro net. It uses a priority queue with station and time containing upwards nodes, a set to keep track
- * on processed stations and a map for fast retrieval of already set travelTimes for a visited station (we could do without
- * the map but then increasing runtime - because retrieving from the priority queue is much slower).
+ * stations in the metro net. It uses a priority queue with station and travel time containing upwards nodes,
+ * a set to keep track on processed stations and a map for fast retrieval of already set travelTimes for a visited station
+ * (we could do without the map but then increasing runtime - because retrieving from the priority queue is much slower).
  */
 public class DijkstraSearch {
 
