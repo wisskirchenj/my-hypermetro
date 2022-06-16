@@ -29,13 +29,15 @@ for the Prague-city metro) and start a Command Line Interpreter to have the user
 
 CL-Command overview:
 
-> /route "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> program prints every passed station and every transition on the shortest route.
+> /fastest-route "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> program prints every passed station and every transition on the <b>fastest</b> route determined using Dijkstra Algorithm.
 
-> /connect "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> a transfer cnnection between the given stations on different lines is added.
+> /route "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> program prints every passed station and every transition on the <b>shortest</b> route determined using the Breadth-First-Search.
 
-> /append "[line name]" "[station name]". -> a new station is added to the end of the line
+> /connect "[line 1]" "[station 1]" "[line 2]" "[station 2]". -> a transfer connection between the given stations on different lines is added.
 
-> /add-head "[line name]" "[station name]". -> a new station is added to the head (start) of the line
+> /append, /add "[line name]" "[station name]" "[time]". -> a new station is added to the end of the line with a given travel time to the last station.
+
+> /add-head "[line name]" "[station name]" "[time]". -> a new station is added to the head (start) of the line with a given travel time to the next station.
 
 > /remove "[line name]" "[station name]". -> the given station is removed from the line.
 

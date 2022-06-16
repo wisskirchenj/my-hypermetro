@@ -19,11 +19,6 @@ public class Station {
     private final int timeToNextStationInLine;
     private final List<TransferStation> transfer = new ArrayList<>();
 
-    public Station(String line, String name) {
-        this(name);
-        this.line = line;
-    }
-
     public Station(String name) {
         this.name = name;
         this.timeToNextStationInLine = 0;

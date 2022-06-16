@@ -1,0 +1,100 @@
+{
+  "L1": {
+    "1": {
+      "name": "A",
+      "transfer": [
+        {
+          "line": "L2",
+          "station": "E"
+        }
+      ],
+      "time": 15
+    },
+    "2": {
+      "name": "B",
+      "transfer": [
+        {
+          "line": "L3",
+          "station": "I"
+        },
+        {
+          "line": "L2",
+          "station": "F"
+        }
+      ],
+      "time": 10
+    },
+    "3": {
+      "name": "C",
+      "transfer": [],
+      "time": 10
+    },
+    "4": {
+      "name": "D",
+      "transfer": [
+        {
+          "line": "L3",
+          "station": "I"
+        },
+        {
+          "line": "L2",
+          "station": "G"
+        }
+      ],
+      "time": null
+    }
+  },
+  "L2": {
+    "2": {
+      "name": "F",
+      "transfer": [
+        {
+          "line": "L1",
+          "station": "B"
+        }
+      ],
+      "time": 19
+    },
+    "1": {
+      "name": "E",
+      "transfer": [
+        {
+          "line": "L1",
+          "station": "A"
+        }
+      ],
+      "time": 1
+    },
+    "3": {
+      "name": "G",
+      "transfer": [
+        {
+          "line": "L1",
+          "station": "D"
+        }
+      ],
+      "time": null
+    }
+  },
+  "L3": {
+    "2": {
+      "name": "I",
+      "transfer": [
+        {
+          "line": "L1",
+          "station": "B"
+        },
+        {
+          "line": "L1",
+          "station": "D"
+        }
+      ],
+      "time": null
+    },
+    "1": {
+      "name": "H",
+      "transfer": [],
+      "time": 2
+    }
+  }
+}
