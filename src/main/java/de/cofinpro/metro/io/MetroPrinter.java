@@ -31,6 +31,7 @@ public class MetroPrinter {
 
         StringBuilder builder = new StringBuilder();
         stations.forEach(station -> builder.append(station).append("\n"));
+        builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
 
@@ -48,6 +49,7 @@ public class MetroPrinter {
             }
             builder.append("\n");
         }
+        builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
 

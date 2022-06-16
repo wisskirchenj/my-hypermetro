@@ -39,18 +39,20 @@ public class CommandLineInterpreter {
             return new InvalidCommand(printer);
         }
         return switch (tokens.get(0)) {
-            case "/append", "add" -> tokens.size() == 3 ? new InsertCommand(CommandType.APPEND, printer, tokens.get(1), tokens.get(2))
+            case "/append", "/add" -> tokens.size() == 4
+                    ? new InsertCommand(CommandType.APPEND, printer, tokens.get(1), tokens.get(2), tokens.get(3))
                     : new InvalidCommand(printer);
-            case "/add-head" -> tokens.size() == 3 ? new InsertCommand(CommandType.ADD_HEAD, printer, tokens.get(1), tokens.get(2))
+            case "/add-head" -> tokens.size() == 4
+                    ? new InsertCommand(CommandType.ADD_HEAD, printer, tokens.get(1), tokens.get(2), tokens.get(3))
                     : new InvalidCommand(printer);
             case "/connect" -> tokens.size() == 5
                     ? new ConnectCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
                     : new InvalidCommand(printer);
             case "/route" -> tokens.size() == 5
-                    ? new RouteCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
+                    ? new RouteCommand(CommandType.ROUTE, printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
                     : new InvalidCommand(printer);
             case "/fastest-route" -> tokens.size() == 5
-                    ? new FastestRouteCommand(printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
+                    ? new RouteCommand(CommandType.FASTEST_ROUTE, printer, tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4))
                     : new InvalidCommand(printer);
             case "/remove" -> tokens.size() == 3 ? new RemoveCommand(printer, tokens.get(1), tokens.get(2))
                     : new InvalidCommand(printer);

@@ -27,10 +27,10 @@ class OutputCommandTest {
     void setUp() {
         lines = new MetroNet();
         MetroLine line = new MetroLine("line 1");
-        line.addStationByName(0,"depot");
-        line.addStationByName(1,"station");
-        line.addStationByName(2,"other station");
-        line.addStationByName(3,"depot");
+        line.addStationByName(0,"depot", 1);
+        line.addStationByName(1,"station", 2);
+        line.addStationByName(2,"other station", 3);
+        line.addStationByName(3,"depot", 0);
         lines.put("line 1", line);
     }
 

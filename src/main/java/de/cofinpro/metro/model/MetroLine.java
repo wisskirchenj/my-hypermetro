@@ -22,9 +22,10 @@ public class MetroLine extends LinkedList<Station> {
      * @param index index where to add
      * @param stationName station to add
      */
-    public void addStationByName(int index, String stationName) {
+    public void addStationByName(int index, String stationName, int timeToNextStation) {
         Station station = new Station(stationName);
         station.setLine(name);
+        station.setTimeToNextStationInLine(timeToNextStation);
         add(index, station);
     }
 

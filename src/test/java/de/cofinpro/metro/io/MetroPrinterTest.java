@@ -32,7 +32,7 @@ class MetroPrinterTest {
         List<Station> stations = List.of(new Station("depot"), new Station("station 1"),
                 new Station("depot"));
         String output = metroPrinter.createLineInfo(stations);
-        assertEquals("depot\nstation 1\ndepot\n", output);
+        assertEquals("depot\nstation 1\ndepot", output);
     }
 
     @Test
@@ -44,7 +44,7 @@ class MetroPrinterTest {
         stations.add(station);
         stations.add(new Station("depot"));
         String output = metroPrinter.createLineInfo(stations);
-        assertEquals("depot\nstation - other (Ligne line)\ndepot\n", output);
+        assertEquals("depot\nstation - other (Ligne line)\ndepot", output);
     }
 
 }

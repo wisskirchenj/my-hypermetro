@@ -29,16 +29,16 @@ class ConnectCommandTest {
     void setup() {
         lines = new MetroNet();
         MetroLine line = new MetroLine("line1");
-        line.addStationByName(0,"depot");
-        line.addStationByName(1,"station");
-        line.addStationByName(2,"otherstation");
-        line.addStationByName(3,"depot");
+        line.addStationByName(0,"depot", 1);
+        line.addStationByName(1,"station", 2);
+        line.addStationByName(2,"otherstation", 3);
+        line.addStationByName(3,"depot", 0);
         lines.put("line1", line);
         line = new MetroLine("line2");
-        line.addStationByName(0,"depot");
-        line.addStationByName(1,"station");
-        line.addStationByName(2,"newone");
-        line.addStationByName(3,"depot");
+        line.addStationByName(0,"depot", 2);
+        line.addStationByName(1,"station", 2);
+        line.addStationByName(2,"newone", 5);
+        line.addStationByName(3,"depot", 0);
         lines.put("line2", line);
     }
 

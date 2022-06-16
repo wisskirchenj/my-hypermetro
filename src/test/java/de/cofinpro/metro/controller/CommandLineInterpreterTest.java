@@ -58,6 +58,7 @@ class CommandLineInterpreterTest {
             "/append \"line m2\" station,/append,line m2,station",
             "/append \"line m2\" \"station 1\",/append,line m2,station 1",
             "/append \"line   m2\"  \"eine neue station 1\",/append,line   m2,eine neue station 1",
+            "/add \"line   m2\"  \"eine neue station 1\",/add,line   m2,eine neue station 1",
 
     })
     void whenThreeTokens_tokenizeWorks(String commandLine, String token1, String token2, String token3) {
@@ -85,11 +86,12 @@ class CommandLineInterpreterTest {
                 Arguments.of("/exit", ExitCommand.class),
                 Arguments.of("/output \"line 1\"", OutputCommand.class),
                 Arguments.of("/remove line1 \"station 2\"", RemoveCommand.class),
-                Arguments.of("/add-head line2 station", InsertCommand.class),
-                Arguments.of("/append line2 station", InsertCommand.class),
+                Arguments.of("/add-head line2 station 2", InsertCommand.class),
+                Arguments.of("/append line2 station 1111", InsertCommand.class),
+                Arguments.of("/add line2 station 1111", InsertCommand.class),
                 Arguments.of("/connect line1 station line2 station", ConnectCommand.class),
                 Arguments.of("/route line1 station \"line 2\" station", RouteCommand.class),
-                Arguments.of("/fastest-route \"line 1\" station \"line2\" station", FastestRouteCommand.class)
+                Arguments.of("/fastest-route \"line 1\" station \"line2\" station", RouteCommand.class)
         );
     }
 
@@ -108,7 +110,7 @@ class CommandLineInterpreterTest {
             "/remove \"one arg\"",
             "/append \"one arg\"",
             "/add-head \"one arg\"",
-            "/add-head too many args",
+            "/add-head too many many args",
             "/connect too few args",
             "/route too \"few and \" args",
             "/fastest-route too too too many args",

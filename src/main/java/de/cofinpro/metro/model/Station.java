@@ -16,7 +16,7 @@ public class Station {
     private String line;
     private final String name;
     @SerializedName("time")
-    private final int timeToNextStationInLine;
+    private int timeToNextStationInLine;
     private final List<TransferStation> transfer = new ArrayList<>();
 
     public Station(String name) {

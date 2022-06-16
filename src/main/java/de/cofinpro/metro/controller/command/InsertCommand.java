@@ -14,12 +14,14 @@ public class InsertCommand implements LineCommand {
     private final MetroPrinter metroPrinter;
     private final String lineName;
     private final String stationName;
+    private final String time;
 
-    public InsertCommand(CommandType type, MetroPrinter printer, String lineName, String stationName) {
+    public InsertCommand(CommandType type, MetroPrinter printer, String lineName, String stationName, String time) {
         this.type = type;
         this.metroPrinter = printer;
         this.lineName = lineName;
         this.stationName = stationName;
+        this.time = time;
     }
 
     /**
@@ -31,10 +33,10 @@ public class InsertCommand implements LineCommand {
     @Override
     public void execute(MetroNet lines) {
         MetroLine line = lines.get(lineName);
-        if (line == null) {
+        if (line == null || !time.matches("\\d+")) {
             metroPrinter.printError("Invalid Command");
         } else {
-            line.addStationByName(type == CommandType.ADD_HEAD ? 1 : line.size() - 1, stationName);
+            line.addStationByName(type == CommandType.ADD_HEAD ? 1 : line.size() - 1, stationName, Integer.parseInt(time));
         }
     }
 
