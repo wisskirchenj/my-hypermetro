@@ -18,6 +18,10 @@ public class Station {
     @SerializedName("time")
     private int timeToNextStationInLine;
     private final List<TransferStation> transfer = new ArrayList<>();
+    @SerializedName("prev")
+    private List<String> previousInLine = new ArrayList<>();
+    @SerializedName("next")
+    private List<String> nextInLine = new ArrayList<>();
 
     public Station(String name) {
         this.name = name;
@@ -31,13 +35,21 @@ public class Station {
         return builder.toString();
     }
 
-    /**
-     * add the given transfer station to the transfer list if not yet contained.
-     * @param transferStation the transfer station to add
-     */
     public void addTransfer(TransferStation transferStation) {
         if (!transfer.contains(transferStation)) {
             transfer.add(transferStation);
+        }
+    }
+
+    public void addPrevious(Station station) {
+        if (!previousInLine.contains(station.getName())) {
+            previousInLine.add(station.getName());
+        }
+    }
+
+    public void addNext(Station station) {
+        if (!nextInLine.contains(station.getName())) {
+            nextInLine.add(station.getName());
         }
     }
 }

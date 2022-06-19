@@ -25,7 +25,7 @@ The sources of main project tasks (6 stages) and unit, mockito testing.
 A application that models and analyzes arbitrary metro systems, finds shortest routes, travel time estimates and more...
 
 The application reads in a .json file (compare the examples given under the src/main/resources or src/test/resources - e.g.
-for the Prague-city metro) and start a Command Line Interpreter to have the user output, change lines and - last but not least - route shortest routes from source to target station given.
+for the London or Prague-city metro) and start a Command Line Interpreter to have the user output, change lines and - last but not least - route shortest routes from source to target station given.
 
 CL-Command overview:
 
@@ -49,7 +49,7 @@ Have fun!
 
 ## Project completion
 
-[//]: # (Project was completed on xx.0d.22.)
+# Project was completed on 19.06.22.
 
 ## Progress
 
@@ -70,3 +70,8 @@ algorithm
 
 16.06.22 Stage 5 completed adding fastest route tracking using Dijkstra Algorithm for (here: travel time) weighted graphs.
 use of PriorityQueue class with Comparator constructor parameter.
+
+19.06.22 Final Stage 6 completed adding functionality of arbitrary loops, bifurcations/branches in metro lines. Thus being
+able to represent realistically the London subway and find fastest and shortest routes in 500 stations on 14 lines. GREAT!
+<br> I adapted the program to handle both input formats of the previous and last stages, because this stage 6 changed the json
+structure significantly.

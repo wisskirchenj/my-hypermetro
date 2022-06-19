@@ -25,8 +25,6 @@ public class RouteCommand extends TwoStationsCommand {
      * execute the command by doing a BF-search to get shortest or Dijkstra to get the fastest route, which is printed
      * by the MetroPrinter.
      * @param lines metro net data
-     * @param from first station from string name params
-     * @param to second station from the name params
      */
     @Override
     protected void executeTwoStationsCommand(MetroNet lines, Station from, Station to) {

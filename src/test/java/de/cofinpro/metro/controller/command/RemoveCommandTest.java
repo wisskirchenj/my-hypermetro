@@ -1,13 +1,18 @@
 package de.cofinpro.metro.controller.command;
 
 import de.cofinpro.metro.io.MetroPrinter;
+import de.cofinpro.metro.io.MetroReader;
 import de.cofinpro.metro.model.MetroLine;
 import de.cofinpro.metro.model.MetroNet;
+import de.cofinpro.metro.model.NetType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -25,7 +30,7 @@ class RemoveCommandTest {
 
     @BeforeEach
     void setup() {
-        lines = new MetroNet();
+        lines = new MetroNet(NetType.CLASSICAL);
         MetroLine line = new MetroLine(LINE_NAME);
         line.addStationByName(0,"depot", 1);
         line.addStationByName(1,"station", 1);
@@ -88,6 +93,27 @@ class RemoveCommandTest {
         assertTrue(lines.findStation(LINE_NAME, "other station").isPresent());
         assertEquals(0, lines.findStation(LINE_NAME, "station").get().getTransfer().size());
         assertEquals(0, lines.findStation(LINE_NAME, "other station").get().getTransfer().size());
+    }
+
+    @Test
+    void whenRemove_thenNextAndPrevsAreRemoved() throws IOException {
+        String standardJsonPath = "./src/test/resources/london.json";
+        MetroNet londonNet = new MetroReader().readJsonFile(standardJsonPath);
+        removeCommand = new RemoveCommand(printer, "District line", "Turnham Green");
+        assertTrue(londonNet.findStation("District line", "Stamford Brook").isPresent());
+        assertTrue(londonNet.findStation("District line", "Stamford Brook").get()
+                .getPreviousInLine().contains("Turnham Green"));
+        removeCommand.execute(londonNet);
+        assertTrue(londonNet.findStation("District line", "Gunnersbury").isPresent());
+        assertFalse(londonNet.findStation("District line", "Gunnersbury").get()
+                .getPreviousInLine().contains("Turnham Green"));
+        assertFalse(londonNet.findStation("District line", "Gunnersbury").get()
+                .getNextInLine().contains("Turnham Green"));
+        assertTrue(londonNet.findStation("District line", "Chiswick Park").isPresent());
+        assertFalse(londonNet.findStation("District line", "Chiswick Park").get()
+                .getNextInLine().contains("Turnham Green"));
+        assertFalse(londonNet.findStation("District line", "Stamford Brook").get()
+                .getPreviousInLine().contains("Turnham Green"));
     }
 
     @Test

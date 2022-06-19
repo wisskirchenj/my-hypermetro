@@ -1,6 +1,8 @@
 package de.cofinpro.metro.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -8,15 +10,29 @@ import java.util.Optional;
  */
 public class MetroNet extends HashMap<String, MetroLine> {
 
+    private final NetType type;
+
+    public MetroNet(NetType type) {
+        this.type = type;
+    }
+
     /**
      * finds the previous station in the metro line to the lowest index station with given name, if present.
      * @param station  station, whose previous is asked for
      * @return Optional result of the search
      */
-    public Optional<Station> findPreviousStationInLine(Station station) {
+    public List<Station> findPreviousInLine(Station station) {
         MetroLine line = get(station.getLine());
         int index = line.indexOf(station);
-        return index > 0 ? Optional.of(line.get(index - 1)) : Optional.empty();
+        List<Station> previousList = new ArrayList<>();
+
+        if (type == NetType.CLASSICAL && index > 0) {
+            previousList.add(line.get(index - 1));
+        }
+        station.getPreviousInLine().stream()
+                .map(name -> findStation(station.getLine(), name)).filter(Optional::isPresent)
+                .map(Optional::get).forEach(previousList::add);
+        return previousList;
     }
 
     /**
@@ -24,10 +40,18 @@ public class MetroNet extends HashMap<String, MetroLine> {
      * @param station station, whose next is asked for
      * @return Optional result of the search
      */
-    public Optional<Station> findNextStationInLine(Station station) {
+    public List<Station> findNextInLine(Station station) {
         MetroLine line = get(station.getLine());
         int index = line.indexOf(station);
-        return index >= 0 && index < line.size() - 1 ? Optional.of(line.get(index + 1)) : Optional.empty();
+        List<Station> nextList = new ArrayList<>();
+        
+        if (type == NetType.CLASSICAL && index < line.size() - 1) {
+            nextList.add(line.get(index + 1));
+        }
+        station.getNextInLine().stream()
+                .map(name -> findStation(station.getLine(), name)).filter(Optional::isPresent)
+                .map(Optional::get).forEach(nextList::add);
+        return nextList;
     }
 
     /**
@@ -38,5 +62,21 @@ public class MetroNet extends HashMap<String, MetroLine> {
      */
     public Optional<Station> findStation(String lineName, String stationName) {
         return get(lineName) == null ? Optional.empty() : get(lineName).findStationByName(stationName);
+    }
+
+    public NetType getType() {
+        return type;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other)
+                && other instanceof MetroNet metroNet
+                && this.type.equals(metroNet.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() * 31 + type.hashCode();
     }
 }

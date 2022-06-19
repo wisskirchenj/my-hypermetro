@@ -2,7 +2,6 @@ package de.cofinpro.metro.controller.command;
 
 import de.cofinpro.metro.model.MetroNet;
 
-
 /**
  * Command-pattern interface: implementing classes are executable (Concrete) LineCommands
  */
@@ -15,9 +14,5 @@ public interface LineCommand {
      */
     void execute(MetroNet lines);
 
-    /**
-     * getter for the commands type
-     * @return the CommandType enum
-     */
     CommandType getType();
 }

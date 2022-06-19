@@ -17,12 +17,6 @@ public class ConnectCommand extends TwoStationsCommand {
         super(metroPrinter, lineName, stationName, transferLineName, transferStationName);
     }
 
-    /**
-     * add the
-     * @param lines metro net data
-     * @param station first station from string name params
-     * @param transferStation second station from the name params
-     */
     @Override
     protected void executeTwoStationsCommand(MetroNet lines, Station station, Station transferStation) {
         station.addTransfer(new TransferStation(transferStation.getLine(), transferStation.getName()));

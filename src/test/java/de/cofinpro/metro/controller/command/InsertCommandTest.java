@@ -3,6 +3,8 @@ package de.cofinpro.metro.controller.command;
 import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
 import de.cofinpro.metro.model.MetroNet;
+import de.cofinpro.metro.model.NetType;
+import de.cofinpro.metro.model.Station;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +32,7 @@ class InsertCommandTest {
 
     @BeforeEach
     void setup() {
-        lines = new MetroNet();
+        lines = new MetroNet(NetType.CLASSICAL);
         MetroLine line = new MetroLine(LINE_NAME);
         line.addStationByName(0,"depot", 1);
         line.addStationByName(1,"station", 2);
@@ -47,6 +49,36 @@ class InsertCommandTest {
         assertEquals(5, lines.get(LINE_NAME).size());
         assertEquals("first station", lines.get(LINE_NAME).get(1).getName());
         assertEquals(4, lines.get(LINE_NAME).get(1).getTimeToNextStationInLine());
+    }
+
+    @Test
+    void whenAddHeadValid_executeCreatesPrevNext() {
+        insertCommand = new InsertCommand(CommandType.ADD_HEAD, printer, LINE_NAME, "first station", "4");
+        insertCommand.execute(lines);
+        assertEquals("first station", lines.get(LINE_NAME).get(1).getName());
+        assertEquals(1, lines.get(LINE_NAME).get(1).getNextInLine().size());
+        assertEquals("station", lines.get(LINE_NAME).get(1).getNextInLine().get(0));
+        assertEquals("station", lines.get(LINE_NAME).get(2).getName());
+        assertEquals(1, lines.get(LINE_NAME).get(2).getPreviousInLine().size());
+        assertEquals("first station", lines.get(LINE_NAME).get(2).getPreviousInLine().get(0));
+    }
+
+    @Test
+    void whenAddHeadExtended_executeCreatesPrevNext() {
+        lines = new MetroNet(NetType.EXTENDED);
+        MetroLine line = new MetroLine(LINE_NAME);
+        line.addStationByName(0,"station", 2);
+        line.addStationByName(1,"other station", 3);
+        lines.put(LINE_NAME, line);
+        assertEquals(2, lines.get(LINE_NAME).size());
+        insertCommand = new InsertCommand(CommandType.ADD_HEAD, printer, LINE_NAME, "first station", "4");
+        insertCommand.execute(lines);
+        assertEquals("first station", lines.get(LINE_NAME).get(0).getName());
+        assertEquals(1, lines.get(LINE_NAME).get(0).getNextInLine().size());
+        assertEquals("station", lines.get(LINE_NAME).get(0).getNextInLine().get(0));
+        assertEquals("station", lines.get(LINE_NAME).get(1).getName());
+        assertEquals(1, lines.get(LINE_NAME).get(1).getPreviousInLine().size());
+        assertEquals("first station", lines.get(LINE_NAME).get(1).getPreviousInLine().get(0));
     }
 
     @Test
@@ -78,6 +110,18 @@ class InsertCommandTest {
         assertEquals("first station", lines.get(LINE_NAME).get(3).getName());
         assertEquals(LINE_NAME, lines.get(LINE_NAME).get(3).getLine());
         assertEquals(5, lines.get(LINE_NAME).get(3).getTimeToNextStationInLine());
+    }
+
+    @Test
+    void whenAppendValid_executeCreatesPrevNext() {
+        insertCommand = new InsertCommand(CommandType.APPEND, printer, LINE_NAME, "first station", "4");
+        insertCommand.execute(lines);
+        assertEquals("first station", lines.get(LINE_NAME).get(3).getName());
+        assertEquals(1, lines.get(LINE_NAME).get(3).getPreviousInLine().size());
+        assertEquals("other station", lines.get(LINE_NAME).get(3).getPreviousInLine().get(0));
+        assertEquals("other station", lines.get(LINE_NAME).get(2).getName());
+        assertEquals(1, lines.get(LINE_NAME).get(2).getNextInLine().size());
+        assertEquals("first station", lines.get(LINE_NAME).get(2).getNextInLine().get(0));
     }
 
     @Test

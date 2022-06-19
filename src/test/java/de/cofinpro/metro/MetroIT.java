@@ -16,9 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MetroIT {
@@ -120,5 +119,54 @@ class MetroIT {
         assertEquals("Baker street", printListCaptor.getValue().get(2).getTransfer().get(0).getStation());
         assertEquals("depot", printListCaptor.getValue().get(4).getName());
         assertEquals(4, printListCaptor.getValue().get(3).getTimeToNextStationInLine());
+    }
+
+    @Test
+    void whenJsonArrayFileFound_thenNoDepotsAdded() {
+        when(scanner.nextLine()).thenReturn("/output \"Piccadilly line\"",
+                "/exit");
+        controller.run("./src/test/resources/london.json");
+        verify(metroPrinter, never()).printError(anyString());
+        verify(metroPrinter).printLine(printListCaptor.capture());
+        assertFalse(printListCaptor.getValue().isEmpty());
+        assertNotEquals("depot", printListCaptor.getValue().get(0).getName());
+        System.out.println(printListCaptor.getValue());
+    }
+
+    @Test
+    void exampleStage6() {
+        when(scanner.nextLine()).thenReturn("/route \"Piccadilly line\" Ickenham \"Central line\" \"North Acton\"",
+                "/exit");
+        controller.run("./src/test/resources/london.json");
+        verify(metroPrinter).printRoute(printListCaptor.capture());
+        System.out.println(printListCaptor.getValue());
+        assertEquals(17, printListCaptor.getValue().size());
+        assertEquals("Ickenham", printListCaptor.getValue().get(0).getName());
+        assertEquals("Piccadilly line", printListCaptor.getValue().get(0).getLine());
+        assertEquals("Ruislip", printListCaptor.getValue().get(1).getName());
+        assertEquals("Ruislip Manor", printListCaptor.getValue().get(2).getName());
+        assertEquals("North Ealing", printListCaptor.getValue().get(10).getName());
+        assertEquals("Ealing Common", printListCaptor.getValue().get(12).getName());
+        assertEquals("District line", printListCaptor.getValue().get(12).getLine());
+        assertEquals("Central line", printListCaptor.getValue().get(15).getLine());
+        assertEquals("West Acton", printListCaptor.getValue().get(15).getName());
+        assertEquals("North Acton", printListCaptor.getValue().get(16).getName());
+    }
+
+    @Test
+    void whenLondonFastestRoute_thenFastestChosen() {
+        when(scanner.nextLine()).thenReturn("/fastest-route \"Victoria line\" \"Brixton\" \"Northern line\" \"Angel\"",
+                "/exit");
+        controller.run("./src/test/resources/london.json");
+        verify(metroPrinter).printRoute(printListCaptor.capture());
+        System.out.println(printListCaptor.getValue());
+        assertEquals(12, printListCaptor.getValue().size());
+        assertEquals("Brixton", printListCaptor.getValue().get(0).getName());
+        assertEquals("Stockwell", printListCaptor.getValue().get(1).getName());
+        assertEquals("Northern line", printListCaptor.getValue().get(2).getLine());
+        assertEquals("Stockwell", printListCaptor.getValue().get(2).getName());
+        assertEquals("Oval", printListCaptor.getValue().get(3).getName());
+        verify(metroPrinter).printTotalTime(printTextCaptor.capture());
+        assertEquals(47, printTextCaptor.getValue());
     }
 }

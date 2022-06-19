@@ -30,13 +30,13 @@ public class BreadthFirstSearch {
      * @return list of the stations for this route from departure to destination stations
      */
     public List<Station> getRoute(Station from, Station to) {
-        enqueue(from, null);
+        visit(from, null);
         while (!stationQueue.isEmpty()) {
             UpwardsNode stationNode = stationQueue.poll();
             if (to.equals(stationNode.station)) {
                 return getRouteList(stationNode);
             }
-            getUnvisitedNeighbors(stationNode.station).forEach(neighbor -> enqueue(neighbor, stationNode));
+            getUnvisitedNeighbors(stationNode.station).forEach(neighbor -> visit(neighbor, stationNode));
         }
         throw new NoSuchElementException("Station to route not found!");
     }
@@ -53,8 +53,8 @@ public class BreadthFirstSearch {
         station.getTransfer().stream()
                 .map(transfer -> lines.findStation(transfer.getLine(), transfer.getStation()).orElseThrow())
                 .filter(not(visited::contains)).forEach(neighbors::add);
-        lines.findPreviousStationInLine(station).stream().filter(not(visited::contains)).forEach(neighbors::add);
-        lines.findNextStationInLine(station).stream().filter(not(visited::contains)).forEach(neighbors::add);
+        lines.findPreviousInLine(station).stream().filter(not(visited::contains)).forEach(neighbors::add);
+        lines.findNextInLine(station).stream().filter(not(visited::contains)).forEach(neighbors::add);
         return neighbors;
     }
 
@@ -81,7 +81,7 @@ public class BreadthFirstSearch {
      * @param station station to enqueue
      * @param parent the parent of this station - in terms of route...
      */
-    private void enqueue(Station station, UpwardsNode parent) {
+    private void visit(Station station, UpwardsNode parent) {
         stationQueue.offer(new UpwardsNode(station, parent));
         visited.add(station);
     }

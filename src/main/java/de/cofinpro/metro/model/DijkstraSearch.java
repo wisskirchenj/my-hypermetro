@@ -65,10 +65,10 @@ public class DijkstraSearch {
                 .map(transfer -> lines.findStation(transfer.getLine(), transfer.getStation()).orElseThrow())
                 .filter(not(processed::contains)).forEach(nb -> dijkstraUpdateNeighbor(stationNode, nb, TRANSFER_TIME));
 
-        lines.findPreviousStationInLine(station).stream().filter(not(processed::contains))
+        lines.findPreviousInLine(station).stream().filter(not(processed::contains))
                 .forEach(nb -> dijkstraUpdateNeighbor(stationNode, nb, nb.getTimeToNextStationInLine()));
 
-        lines.findNextStationInLine(station).stream().filter(not(processed::contains))
+        lines.findNextInLine(station).stream().filter(not(processed::contains))
                 .forEach(nb -> dijkstraUpdateNeighbor(stationNode, nb, station.getTimeToNextStationInLine()));
     }
 

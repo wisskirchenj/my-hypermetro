@@ -3,6 +3,7 @@ package de.cofinpro.metro.controller.command;
 import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.model.MetroLine;
 import de.cofinpro.metro.model.MetroNet;
+import de.cofinpro.metro.model.NetType;
 import de.cofinpro.metro.model.TransferStation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ class ConnectCommandTest {
 
     @BeforeEach
     void setup() {
-        lines = new MetroNet();
+        lines = new MetroNet(NetType.CLASSICAL);
         MetroLine line = new MetroLine("line1");
         line.addStationByName(0,"depot", 1);
         line.addStationByName(1,"station", 2);

@@ -2,6 +2,7 @@ package de.cofinpro.metro.io;
 
 import com.google.gson.JsonParseException;
 import de.cofinpro.metro.model.MetroLine;
+import de.cofinpro.metro.model.MetroNet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,8 +44,8 @@ class MetroReaderTest {
     @ParameterizedTest
     @ValueSource(strings = {"./src/test/resources/standard-wrong.json",
             "./src/test/resources/standard-wrong2.json"})
-    void whenValidJsonNotFormatGiven_readJsonFileThrowsIllegalState(String path) {
-        assertThrows(IllegalStateException.class, () -> metroReader.readJsonFile(path));
+    void whenValidJsonNotFormatGiven_readJsonFileThrowsRuntime(String path) {
+        assertThrows(RuntimeException.class, () -> metroReader.readJsonFile(path));
     }
 
     @Test
@@ -78,5 +79,13 @@ class MetroReaderTest {
         assertNotNull(lines.get("Metro-Railway").get(2).getTransfer());
         assertEquals(1, lines.get("Metro-Railway").get(2).getTransfer().size());
         assertEquals(1, lines.get("Metro-Railway").get(2).getTimeToNextStationInLine());
+    }
+
+    @Test
+    void whenLondonJson_readExtendedJsonReadsLines() throws IOException {
+        String standardJsonPath = "./src/test/resources/london.json";
+        MetroNet lines = metroReader.readJsonFile(standardJsonPath);
+        System.out.println(lines);
+        assertEquals(14, lines.size());
     }
 }

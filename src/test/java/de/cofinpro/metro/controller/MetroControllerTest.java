@@ -6,6 +6,7 @@ import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.io.MetroReader;
 import de.cofinpro.metro.model.MetroLine;
 import de.cofinpro.metro.model.MetroNet;
+import de.cofinpro.metro.model.NetType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,7 +42,7 @@ class MetroControllerTest {
     @BeforeEach
     void setUp() {
         metroController = new MetroController(metroReader, metroPrinter, commandLineInterpreter);
-        lines = new MetroNet();
+        lines = new MetroNet(NetType.CLASSICAL);
         lines.put("line", new MetroLine("line"));
     }
 

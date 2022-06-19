@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 /**
  * CommandLineInterpreter class used in the MetroController, that parses a user entered command line and creates
  * a LineCommand form the parse result.

@@ -7,6 +7,7 @@ import de.cofinpro.metro.io.MetroPrinter;
 import de.cofinpro.metro.io.MetroReader;
 import de.cofinpro.metro.model.MetroLine;
 import de.cofinpro.metro.model.MetroNet;
+import de.cofinpro.metro.model.NetType;
 import de.cofinpro.metro.model.Station;
 
 import java.io.FileNotFoundException;
@@ -66,7 +67,9 @@ public class MetroController {
             metroPrinter.printError(e.toString());
             return false;
         }
-        lines.values().forEach(this::addDepotStation);
+        if (lines.getType() == NetType.CLASSICAL) {
+            lines.values().forEach(this::addDepotStation);
+        }
         return true;
     }
 
