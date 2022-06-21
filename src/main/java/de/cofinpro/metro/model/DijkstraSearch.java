@@ -92,7 +92,7 @@ public class DijkstraSearch {
     /**
      * after Dijkstra algorithm has found the destination station, this method is called and returns the fastest route
      * from departure to destination station. It uses the UpwardsNode structure, that is created during dijkstra to go back
-     * from target via parent to the root. Also the total time property is set for later retrieval by caller command.
+     * from target via parent to the root. Also, the total time property is set for later retrieval by caller command.
      * @param stationNode the node of the target station found.
      * @return list with the stations route from departure to target.
      */
