@@ -81,7 +81,7 @@ public class DijkstraSearch {
      */
     private void dijkstraUpdateNeighbor(UpwardsTravelTimeNode stationNode, Station neighbor, int travelTimeStationToNeighbor) {
         int timeOnThisRoute = travelTimes.get(stationNode.getStation()) + travelTimeStationToNeighbor;
-        if (travelTimes.get(neighbor) != null && travelTimes.get(neighbor) < timeOnThisRoute
+        if (travelTimes.containsKey(neighbor) && travelTimes.get(neighbor) < timeOnThisRoute
                 || neighbor.getName().equals("depot")) {
             return;
         }
