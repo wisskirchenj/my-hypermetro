@@ -9,7 +9,7 @@ Also: This is one graduate project of the Java Core Track, which covers the most
 
 ## Technology / External Libraries
 
-- POJO Java 18,
+- POJO Java 19,
 - with Lombok annotation processors,
 - Apache Log4j SLF4J API binding to Log4j 2 logging and
 - com.google.gson Library
