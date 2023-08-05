@@ -10,7 +10,6 @@ application {
 
 group 'de.cofinpro'
 version '1.0-SNAPSHOT'
-sourceCompatibility = '19'
 
 repositories {
     mavenCentral()
